@@ -19,6 +19,8 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable fun PantallaTareas(vm:TareasViewModel) {
+    ObservarFotogramas(vm::registrarFotograma,vm::reiniciarFotogramas)
+    val mayorPausa by vm.mayorPausa.collectAsStateWithLifecycle()
     val mensaje by vm.mensaje.collectAsStateWithLifecycle()
     val primos by vm.primos.collectAsStateWithLifecycle()
     val carga by vm.carga.collectAsStateWithLifecycle()
@@ -31,6 +33,7 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
     Scaffold(topBar={ TopAppBar(title={ Text("CentroTareas",fontWeight=FontWeight.Bold) },colors=TopAppBarDefaults.topAppBarColors(containerColor=MaterialTheme.colorScheme.primary,titleContentColor=MaterialTheme.colorScheme.onPrimary)) }) { margen ->
         Column(Modifier.fillMaxSize().padding(margen).padding(horizontal=16.dp).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(16.dp)) {
             Spacer(Modifier.height(0.dp))
+            Text("Respuesta de pantalla · mayor pausa: ${mayorPausa.toInt()} ms")
             Seccion("Tarea con progreso") {
                 Button(onClick={ toques++ },modifier=Modifier.align(Alignment.CenterHorizontally)) { Text("Tócame: $toques") }
                 Row(horizontalArrangement=Arrangement.spacedBy(10.dp),modifier=Modifier.align(Alignment.CenterHorizontally)) {

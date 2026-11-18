@@ -99,3 +99,17 @@ La UI solo observa el ViewModel y comunica acciones; no consulta repositorios ni
 | 6. Comparación de tiempos | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Comparación de tiempos conservando las interfaces y cancelación de la base. | Cumplir la mejora sin mover lógica de trabajo a Compose. |
 
 Diferencia frente a la base: se incorpora comparación de tiempos. Reflexión: cada estado visible debe corresponder a trabajo real. Comprobar: el caso de éxito, cancelación y recuperación descritos arriba.
+
+## 7. Medidor de respuesta propio
+
+```text
+Compórtate como un experto en rendimiento Android y MVVM. Ayúdame a añadir un medidor didáctico de respuesta a CentroTareas, com.leon.centrotareas. Conserva las seis mejoras y la cancelación. Crea ui/ObservarFotogramas.kt con DisposableEffect y Choreographer.FrameCallback; se registra solo al RESUMED, retira el callback al PAUSE o dispose y reinicia el tiempo anterior al reanudar. No uses coroutines ni bucles de trabajo en la UI: el callback solo entrega el timestamp al ViewModel. Usa rememberUpdatedState para los callbacks.
+
+En TareasViewModel crea registrarFotograma(nanos) y reiniciarFotogramas. Solo mide mientras una tarea, cálculo o carga está activa. Calcula intervalos entre fotogramas en milisegundos con timestamps monotónicos. Al comenzar un nuevo trabajo reinicia la serie y su máximo, publica como máximo una muestra cada250ms y conserva40. Expón mayorPausa y pausas como StateFlow. Las pausas de fondo no deben contarse como lentitud de la app. Presenta el máximo y, después del rediseño, un gráfico de intervalos reales. No inventes FPS ni afirmes que el emulador representa rendimiento de un teléfono físico. Compara cómo responde Tócame durante el trabajo; este medidor es un aporte propio y no sustituye la comparación de tiempos de carga de la guía. Prueba sin trabajo, trabajo activo, reinicio y paso al fondo. Compila y verifica antes de seguir.
+```
+
+| Prompt | Qué respondió Gemini | Qué adapté | Por qué |
+|---|---|---|---|
+| 7. Respuesta | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Observación de fotogramas reales con ciclo de vida, máximo y serie acotada. | Ayuda a demostrar que el hilo principal sigue dibujando mientras las corrutinas trabajan. |
+
+Diferencia frente a la base: mide pausas de renderizado. Reflexión: una carga rápida no implica una interfaz fluida. Comprobar: no incluir el tiempo en segundo plano.

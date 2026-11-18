@@ -117,4 +117,25 @@ class TareasViewModel(private val repo:TareasRepository,private val almacen:com.
     private val _mediciones=MutableStateFlow<List<MedicionCarga>>(emptyList())
     val mediciones:StateFlow<List<MedicionCarga>> = _mediciones.asStateFlow()
     private var numeroMedicion=0
+    private val _pausas=MutableStateFlow<List<Float>>(emptyList())
+    val pausas:StateFlow<List<Float>> = _pausas.asStateFlow()
+    private val _mayorPausa=MutableStateFlow(0f)
+    val mayorPausa:StateFlow<Float> = _mayorPausa.asStateFlow()
+    private var fotogramaAnterior=0L
+    private var ultimaMuestra=0L
+    private var midiendo=false
+    fun reiniciarFotogramas() { fotogramaAnterior=0;ultimaMuestra=0;midiendo=false }
+    fun registrarFotograma(nanos:Long) {
+        val ocupado=_corriendo.value || _primos.value==PrimosUi.Calculando || _carga.value==CargaUi.Cargando
+        if(!ocupado) { fotogramaAnterior=0;midiendo=false;return }
+        if(!midiendo) { _pausas.value=emptyList();_mayorPausa.value=0f;midiendo=true;fotogramaAnterior=nanos;ultimaMuestra=nanos;return }
+        if(fotogramaAnterior!=0L && nanos>fotogramaAnterior) {
+            val ms=(nanos-fotogramaAnterior)/1_000_000f
+            _mayorPausa.value=maxOf(_mayorPausa.value,ms)
+            if(nanos-ultimaMuestra>=250_000_000L) {
+                _pausas.value=(_pausas.value+ms).takeLast(40);ultimaMuestra=nanos
+            }
+        }
+        fotogramaAnterior=nanos
+    }
 }
