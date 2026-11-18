@@ -42,7 +42,7 @@ class CentroTareasTest {
         ui.runOnIdle { vm.cancelarPrimos() };ui.waitUntil(5000) { vm.primos.value==PrimosUi.Cancelado }
     }
     @Test fun textoInvalidoNoLanzaCalculo() {
-        val vm=mostrar();ui.onNodeWithText("Hasta el número").performScrollTo().performTextReplacement("abc")
+        val vm=mostrar();ui.onNodeWithText("Primos").performClick();ui.onNodeWithText("Hasta el número").performScrollTo().performTextReplacement("abc")
         ui.onNodeWithText("Contar").assertIsNotEnabled();assertEquals(PrimosUi.Inicial,vm.primos.value)
     }
     @Test fun cargasEnParaleloSuperponenSusEsperas() {
@@ -63,7 +63,7 @@ class CentroTareasTest {
             override suspend fun cargarPerfil():String { delay(20);return "Ana" }
             override suspend fun cargarPedidos(simularError:Boolean):List<String> { delay(40);if(simularError)throw java.io.IOException("Sin conexión");return listOf("101","102","103") }
         }
-        val vm=mostrar(repo);ui.runOnIdle { vm.cambiarSimularError(true);vm.cargarALaVez() }
+        val vm=mostrar(repo);ui.onNodeWithText("Cargas").performClick();ui.runOnIdle { vm.cambiarSimularError(true);vm.cargarALaVez() }
         ui.waitUntil(5000) { vm.carga.value is CargaUi.Error }
         ui.onNodeWithText("Reintentar").performScrollTo().assertIsDisplayed()
         ui.runOnIdle { vm.cambiarSimularError(false) };ui.onNodeWithText("Reintentar").performClick()
@@ -93,13 +93,18 @@ class CentroTareasTest {
         ui.runOnIdle { vm.cargarALaVez() };ui.waitUntil { vm.intento.value==1 }
         ui.runOnIdle { vm.cancelarCarga() };ui.waitUntil { vm.carga.value==CargaUi.Inicial }
     }
-    @Test fun datastoreRealRecuperaSoloLosCincoUltimosResultados()=runBlocking {
+    @Test fun datastoreRealRecuperaSoloLosCincoUltimosResultados() {
         val c=androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext
-        val repo=HistorialDataStore(c)
-        for(i in 1..7)repo.agregar(ResultadoGuardado("prueba$i","Primos","$i",i.toLong(),i.toLong()))
-        val otro=HistorialDataStore(c)
-        val datos=otro.resultados.first()
-        assertEquals(listOf("prueba7","prueba6","prueba5","prueba4","prueba3"),datos.map { it.id })
+        val scope=CoroutineScope(SupervisorJob()+Dispatchers.Main)
+        var datos:List<ResultadoGuardado>?=null
+        mostrar()
+        ui.runOnIdle { scope.launch {
+            val repo=HistorialDataStore(c)
+            for(i in 1..7)repo.agregar(ResultadoGuardado("prueba$i","Primos","$i",i.toLong(),i.toLong()))
+            datos=HistorialDataStore(c).resultados.first()
+        } }
+        ui.waitUntil(10000) { datos!=null };scope.cancel()
+        assertEquals(listOf("prueba7","prueba6","prueba5","prueba4","prueba3"),datos!!.map { it.id })
     }
     @Test fun comparacionSoloAgregaCargasExitosas() {
         val vm=mostrar();ui.runOnIdle { vm.cargarALaVez() };ui.waitUntil(6000) { vm.carga.value is CargaUi.Exito }

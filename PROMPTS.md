@@ -113,3 +113,21 @@ En TareasViewModel crea registrarFotograma(nanos) y reiniciarFotogramas. Solo mi
 | 7. Respuesta | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Observación de fotogramas reales con ciclo de vida, máximo y serie acotada. | Ayuda a demostrar que el hilo principal sigue dibujando mientras las corrutinas trabajan. |
 
 Diferencia frente a la base: mide pausas de renderizado. Reflexión: una carga rápida no implica una interfaz fluida. Comprobar: no incluir el tiempo en segundo plano.
+
+## 8. Diseño azul y vidrio claro
+
+```text
+Compórtate como un experto en diseño de interfaces Android con Jetpack Compose y Material 3. Ayúdame a rediseñar CentroTareasLeon, paquete com.leon.centrotareas, conservando las seis mejoras, el medidor y MVVM. Trabaja en mejora-ia; no cambies main. Usa el código del commit de este prompt como referencia exacta, incluidos ui/CristalTareas.kt, ui/PantallaTareas.kt y ui/theme/Theme.kt. No necesitas fotos: los fondos y el vidrio son procedurales. Los cinco iconos propios están en app/src/main/res/drawable/ic_historial.xml, ic_volver.xml, ic_tocar.xml, ic_check.xml e ic_opciones.xml; sus originales SVG están en docs/recursos/iconos. No dependas de carpetas fuera de la repo.
+
+Fondo blanco frío #F4F8FE, texto #132A44, azul #195DAA y campos de luz azul/cian. Usa el esquema oscuro del sistema (#091324 y #AACFFF). Mantén tipografía Material3, títulos 24–28sp, margen horizontal24dp y separación principal24dp. Nada de tarjetas dentro de tarjetas. Cabecera CentroTareas con botón de historial56dp. Debajo, selector nativo Progreso / Primos / Cargas: una tarea visible. Acciones de al menos56dp; iniciar/contar/A la vez azules y cancelar/Una por una con borde. Pruebas de carga y comparación se despliegan solo al tocarlas. El historial es una pantalla aparte con sus cinco filas y Atrás nativo. A partir de700dp, usa dos columnas: tarea y diagnóstico de300dp; en teléfono, todo se desplaza verticalmente. Adapta texto grande y teclado sin recortar controles.
+
+Crea SuperficieVidrio y BotonVidrio con Canvas y RuntimeShader AGSL en API33+, y degradado de respaldo en API24–32. La lente redondeada muestrea el mismo fondo procedural usando coordenadas globales, desplaza la muestra en los bordes, añade reflejo direccional blanco y sombra suave. No afirmes que refracta otras vistas: refracta ese fondo. El botón tiene respuesta a presión con escala0.96 y resorte amortiguado, pero mantiene la semántica, foco y eventos de Button. Respeta la reducción de animaciones del sistema. Evita transparencias en los datos si perjudican el contraste.
+
+En Comprueba la respuesta muestra Tócame, mayor pausa y una curva de muestras reales del medidor. Captura una lista inmutable local al componer y usa esa misma lista al dibujar: la serie puede reiniciarse mientras Canvas dibuja y no debe fallar ni dividir entre cero. No pongas datos ficticios en la curva. Prueba los tres apartados, historial, error, cancelación, tema oscuro, letra grande y horizontal. Ejecuta assembleDebug, testDebugUnitTest, lintDebug y connectedDebugAndroidTest antes de continuar. Las capturas deben salir del emulador ejecutando esta versión, sin pintar interfaces falsas.
+```
+
+| Prompt | Qué respondió Gemini | Qué adapté | Por qué |
+|---|---|---|---|
+| 8. Diseño | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Una tarea visible, historial aparte, vidrio procedural y controles nativos accesibles. | Reducir opciones simultáneas y mantener legible la demostración. |
+
+Diferencia frente a la base: cambia la organización y el material visual. Comprobar: navegación, contraste, texto grande y reinicio de la gráfica durante el dibujo.
