@@ -8,5 +8,14 @@ class TareasRepositoryLocal:TareasRepository {
         if(simularError) throw IOException("Sin conexión")
         return listOf("Pedido 101","Pedido 102","Pedido 103")
     }
-    override suspend fun contarPrimos(hasta:Int):Int=0 // Se completa en el paso de primos.
+    override suspend fun contarPrimos(hasta:Int):Int=withContext(Dispatchers.Default) {
+        var cantidad=0
+        for(n in 2..hasta) { ensureActive();if(esPrimo(n))cantidad++ }
+        cantidad
+    }
+    private fun esPrimo(n:Int):Boolean {
+        var d=2
+        while(d.toLong()*d<=n) { if(n%d==0)return false;d++ }
+        return n>=2
+    }
 }

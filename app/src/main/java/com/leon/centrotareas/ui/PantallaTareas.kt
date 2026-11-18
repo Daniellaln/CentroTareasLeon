@@ -43,7 +43,8 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
                 OutlinedTextField(value=numero,onValueChange={ numero=it },label={ Text("Hasta el número") },singleLine=true,
                     keyboardOptions=KeyboardOptions(keyboardType=KeyboardType.Number),modifier=Modifier.fillMaxWidth())
                 Row(horizontalArrangement=Arrangement.spacedBy(10.dp)) {
-                    Button(onClick={},enabled=false) { Text("Contar") }
+                    Button(onClick={ numero.toIntOrNull()?.takeIf { it>=2 }?.let(vm::contar) },enabled=primos!=PrimosUi.Calculando && (numero.toIntOrNull() ?: 0)>=2) { Text("Contar") }
+                    OutlinedButton(onClick=vm::cancelarPrimos,enabled=primos==PrimosUi.Calculando) { Text("Cancelar cálculo") }
                 }
                 when(val estado=primos) {
                     PrimosUi.Inicial -> Unit

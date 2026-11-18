@@ -37,4 +37,17 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
             finally { _corriendo.value=false }
         }
     }
+    private var calculo:Job?=null
+    fun contar(hasta:Int) {
+        if(hasta<2 || _primos.value==PrimosUi.Calculando)return
+        _primos.value=PrimosUi.Calculando
+        calculo=viewModelScope.launch {
+            try {
+                val inicio=System.currentTimeMillis()
+                val cantidad=repo.contarPrimos(hasta)
+                _primos.value=PrimosUi.Listo(cantidad,System.currentTimeMillis()-inicio)
+            } catch(e:CancellationException) { _primos.value=PrimosUi.Cancelado;throw e }
+        }
+    }
+    fun cancelarPrimos() { calculo?.cancel() }
 }
