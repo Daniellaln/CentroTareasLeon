@@ -25,13 +25,15 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
     var toques by rememberSaveable { mutableIntStateOf(0) }
     var numero by rememberSaveable { mutableStateOf("500000") }
     val progreso by vm.progreso.collectAsStateWithLifecycle()
+    val corriendo by vm.corriendo.collectAsStateWithLifecycle()
     Scaffold(topBar={ TopAppBar(title={ Text("CentroTareas",fontWeight=FontWeight.Bold) },colors=TopAppBarDefaults.topAppBarColors(containerColor=MaterialTheme.colorScheme.primary,titleContentColor=MaterialTheme.colorScheme.onPrimary)) }) { margen ->
         Column(Modifier.fillMaxSize().padding(margen).padding(horizontal=16.dp).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(16.dp)) {
             Spacer(Modifier.height(0.dp))
             Seccion("Tarea con progreso") {
                 Button(onClick={ toques++ },modifier=Modifier.align(Alignment.CenterHorizontally)) { Text("Tócame: $toques") }
                 Row(horizontalArrangement=Arrangement.spacedBy(10.dp),modifier=Modifier.align(Alignment.CenterHorizontally)) {
-                    Button(onClick=vm::tareaLarga) { Text("Iniciar") }
+                    Button(onClick=vm::tareaLarga,enabled=!corriendo) { Text("Iniciar") }
+                    OutlinedButton(onClick=vm::cancelar,enabled=corriendo) { Text("Cancelar tarea") }
                 }
                 LinearProgressIndicator(progress={ progreso },modifier=Modifier.fillMaxWidth())
                 Text("${(progreso*100).toInt()} %",Modifier.align(Alignment.CenterHorizontally))

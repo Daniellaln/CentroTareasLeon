@@ -15,8 +15,15 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
     val carga:StateFlow<CargaUi> = _carga.asStateFlow()
     private val _progreso=MutableStateFlow(0f)
     val progreso:StateFlow<Float> = _progreso.asStateFlow()
+    private var trabajo:Job?=null
+    private val _corriendo=MutableStateFlow(false)
+    val corriendo:StateFlow<Boolean> = _corriendo.asStateFlow()
+    fun cancelar() { if(_corriendo.value) { trabajo?.cancel();_mensaje.value="Cancelado" } }
     fun tareaLarga() {
-        viewModelScope.launch {
+        if(_corriendo.value)return
+        _corriendo.value=true
+        trabajo=viewModelScope.launch {
+            try {
             _mensaje.value="Trabajando..."
             Log.d("HILO","Antes: ${Thread.currentThread().name}")
             _progreso.value=0f
@@ -26,6 +33,8 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
             }
             Log.d("HILO","Después: ${Thread.currentThread().name}")
             _mensaje.value="Terminó"
+            } catch(e:CancellationException) { _mensaje.value="Cancelado";throw e }
+            finally { _corriendo.value=false }
         }
     }
 }
