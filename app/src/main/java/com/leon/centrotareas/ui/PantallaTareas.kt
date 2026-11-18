@@ -30,7 +30,7 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
             Seccion("Tarea con progreso") {
                 Button(onClick={ toques++ },modifier=Modifier.align(Alignment.CenterHorizontally)) { Text("Tócame: $toques") }
                 Row(horizontalArrangement=Arrangement.spacedBy(10.dp),modifier=Modifier.align(Alignment.CenterHorizontally)) {
-                    Button(onClick={},enabled=false) { Text("Iniciar") }
+                    Button(onClick=vm::tareaLargaMala) { Text("Tarea larga (MAL)") }
                 }
                 Text(mensaje,Modifier.align(Alignment.CenterHorizontally))
             }

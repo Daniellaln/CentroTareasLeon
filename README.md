@@ -9,3 +9,7 @@ Esta implementación se prepara con asistencia de Codex. La guía distingue una 
 Abre esta carpeta en Android Studio con JDK21 y SDK37. No necesita Internet, permisos ni Firebase para funcionar. Las dependencias se descargan al sincronizar.
 
 Avance inicial: pantalla con tres secciones; las funciones se incorporan en los siguientes commits.
+
+## Observación del Paso 1
+
+Durante la espera de cuatro segundos la pantalla no responde y el contador no se actualiza. Trabajando... no llega a dibujarse porque el hilo principal está ocupado. Si el bloqueo se prolonga, Android puede mostrar que la app no responde (ANR); el momento exacto depende del sistema.
