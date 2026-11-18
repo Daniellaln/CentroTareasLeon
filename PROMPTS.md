@@ -19,3 +19,19 @@ La UI solo observa el ViewModel y comunica acciones; no consulta repositorios ni
 | 1. Progreso desde Repository | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Progreso desde Repository conservando las interfaces y cancelación de la base. | Cumplir la mejora sin mover lógica de trabajo a Compose. |
 
 Diferencia frente a la base: se incorpora progreso desde repository. Reflexión: cada estado visible debe corresponder a trabajo real. Comprobar: el caso de éxito, cancelación y recuperación descritos arriba.
+
+## 2. Tiempo máximo
+
+```text
+Compórtate como un experto en Kotlin, corrutinas y arquitectura MVVM para Android. Ayúdame a incorporar tiempo máximo a CentroTareasLeon, paquete com.leon.centrotareas, partiendo del avance anterior en mejora-ia. Conserva main, los modelos de estado, el resto de funciones y las tres tareas de la guía. El proyecto usa Compose Material3 y JDK21; no necesita Firebase, permisos ni Internet para simular cargas.
+
+Añade StateFlow<Boolean> limite en TareasViewModel, inicial false. En la sección de cargas añade un Switch Límite de2s. Captura la opción al empezar y envuelve el conjunto de cargas en withTimeout(2000). Maneja TimeoutCancellationException por separado con Error("Tardó demasiado"), antes de CancellationException. La cancelación manual se relanza y devuelve la carga a Inicial. El límite se puede desactivar: las cargas de2 y3s de la base deben seguir comparándose correctamente en modo normal. No cambies sus duraciones para fabricar éxito bajo un límite imposible. Comprueba ambos modos, timeout de2s y recuperación desactivando la opción.
+
+La UI solo observa el ViewModel y comunica acciones; no consulta repositorios ni lanza trabajos. El ViewModel depende de interfaces sin Context. Conserva la cancelación estructurada y evita GlobalScope, runBlocking y Thread.sleep en código de producción. Compila con gradlew.bat assembleDebug testDebugUnitTest (o ./gradlew en Mac) y comprueba este cambio antes de seguir al próximo prompt. Puedes consultar el código de este avance en el historial Git de la rama para reproducir firmas y etiquetas exactas.
+```
+
+| Prompt | Qué respondió Gemini | Qué adapté | Por qué |
+|---|---|---|---|
+| 2. Tiempo máximo | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Tiempo máximo conservando las interfaces y cancelación de la base. | Cumplir la mejora sin mover lógica de trabajo a Compose. |
+
+Diferencia frente a la base: se incorpora tiempo máximo. Reflexión: cada estado visible debe corresponder a trabajo real. Comprobar: el caso de éxito, cancelación y recuperación descritos arriba.

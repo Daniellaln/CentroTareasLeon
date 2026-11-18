@@ -55,6 +55,8 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
                 }
             }
             Seccion("Dos cargas") {
+                val limite by vm.limite.collectAsStateWithLifecycle()
+                Row(verticalAlignment=Alignment.CenterVertically) { Switch(limite,vm::cambiarLimite);Text("Límite de 2 s") }
                 Row(verticalAlignment=Alignment.CenterVertically) { Switch(checked=simularError,onCheckedChange=vm::cambiarSimularError);Spacer(Modifier.width(8.dp));Text("Simular error") }
                 Row(horizontalArrangement=Arrangement.spacedBy(10.dp)) {
                     OutlinedButton(onClick=vm::cargarUnaPorUna,enabled=carga!=CargaUi.Cargando) { Text("Una por una") }

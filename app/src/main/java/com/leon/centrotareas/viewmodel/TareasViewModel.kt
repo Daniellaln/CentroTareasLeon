@@ -58,17 +58,24 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
         if(_carga.value==CargaUi.Cargando)return
         _carga.value=CargaUi.Cargando
         val fallo=_simularError.value
+        val usarLimite=_limite.value
         cargaJob=viewModelScope.launch {
             try {
                 val inicio=System.currentTimeMillis()
-                val (perfil,pedidos)=if(paralelo)coroutineScope {
+                val (perfil,pedidos)=conLimite(usarLimite) { if(paralelo)coroutineScope {
                     val a=async { repo.cargarPerfil() }
                     val c=async { repo.cargarPedidos(fallo) }
                     a.await() to c.await()
-                } else repo.cargarPerfil() to repo.cargarPedidos(fallo)
+                } else repo.cargarPerfil() to repo.cargarPedidos(fallo) }
                 _carga.value=CargaUi.Exito(if(paralelo)"A la vez" else "Una por una",perfil,pedidos.size,System.currentTimeMillis()-inicio)
-            } catch(e:CancellationException) { _carga.value=CargaUi.Inicial;throw e }
+            } catch(e:TimeoutCancellationException) { _carga.value=CargaUi.Error("Tardó demasiado") }
+            catch(e:CancellationException) { _carga.value=CargaUi.Inicial;throw e }
             catch(e:Exception) { _carga.value=CargaUi.Error("No se pudo cargar: ${e.message ?: "Error inesperado"}") }
         }
     }
+    private val _limite=MutableStateFlow(false)
+    val limite:StateFlow<Boolean> = _limite.asStateFlow()
+    fun cambiarLimite(valor:Boolean) { _limite.value=valor }
+    private suspend fun <T> conLimite(usar:Boolean,bloque:suspend ()->T):T =
+        if(usar) withTimeout(2000) { bloque() } else bloque()
 }
