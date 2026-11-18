@@ -55,13 +55,14 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
             }
             Seccion("Dos cargas") {
                 Row(horizontalArrangement=Arrangement.spacedBy(10.dp)) {
-                    OutlinedButton(onClick={},enabled=false) { Text("Una por una") }
-                    Button(onClick={},enabled=false) { Text("A la vez") }
+                    OutlinedButton(onClick=vm::cargarUnaPorUna,enabled=carga!=CargaUi.Cargando) { Text("Una por una") }
+                    Button(onClick=vm::cargarALaVez,enabled=carga!=CargaUi.Cargando) { Text("A la vez") }
                 }
                 when(val estado=carga) {
                     CargaUi.Inicial -> Unit
                     CargaUi.Cargando -> {
                         CircularProgressIndicator(Modifier.size(24.dp));Text("Cargando…")
+                        TextButton(onClick=vm::cancelarCarga) { Text("Cancelar carga") }
                     }
                     is CargaUi.Exito -> Resultado { Text("Modo: ${estado.modo}",fontWeight=FontWeight.Bold);Text("Perfil: ${estado.perfil}");Text("Pedidos: ${estado.pedidos}");Text("Tiempo: ${estado.milisegundos} ms") }
                     is CargaUi.Error -> {

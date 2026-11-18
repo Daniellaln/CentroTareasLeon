@@ -50,4 +50,24 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
         }
     }
     fun cancelarPrimos() { calculo?.cancel() }
+    private var cargaJob:Job?=null
+    fun cargarUnaPorUna()=cargar(false)
+    fun cargarALaVez()=cargar(true)
+    fun cancelarCarga() { cargaJob?.cancel() }
+    private fun cargar(paralelo:Boolean) {
+        if(_carga.value==CargaUi.Cargando)return
+        _carga.value=CargaUi.Cargando
+        val fallo=false
+        cargaJob=viewModelScope.launch {
+            try {
+                val inicio=System.currentTimeMillis()
+                val (perfil,pedidos)=if(paralelo)coroutineScope {
+                    val a=async { repo.cargarPerfil() }
+                    val c=async { repo.cargarPedidos(fallo) }
+                    a.await() to c.await()
+                } else repo.cargarPerfil() to repo.cargarPedidos(fallo)
+                _carga.value=CargaUi.Exito(if(paralelo)"A la vez" else "Una por una",perfil,pedidos.size,System.currentTimeMillis()-inicio)
+            } catch(e:CancellationException) { _carga.value=CargaUi.Inicial;throw e }
+        }
+    }
 }
