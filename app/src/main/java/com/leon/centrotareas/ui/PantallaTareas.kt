@@ -82,6 +82,13 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
                     }
                 }
             }
+            val historial by vm.historial.collectAsStateWithLifecycle()
+            val aviso by vm.aviso.collectAsStateWithLifecycle()
+            aviso?.let { Text(it,color=MaterialTheme.colorScheme.error) }
+            Seccion("Últimos resultados") {
+                if(historial.isEmpty())Text("Aún no hay resultados")
+                historial.forEach { Text("${it.tipo} · ${it.resumen} · ${it.milisegundos} ms") }
+            }
             Spacer(Modifier.height(8.dp))
         }
     }

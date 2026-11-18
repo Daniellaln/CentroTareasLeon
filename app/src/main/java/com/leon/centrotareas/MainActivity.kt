@@ -12,6 +12,6 @@ class MainActivity:ComponentActivity() {
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(statusBarStyle=SystemBarStyle.dark(android.graphics.Color.TRANSPARENT))
-        setContent { CentroTareasTheme { val vm:TareasViewModel=viewModel(factory=TareasViewModelFactory());PantallaTareas(vm) } }
+        setContent { CentroTareasTheme { val vm:TareasViewModel=viewModel(factory=TareasViewModelFactory(applicationContext));PantallaTareas(vm) } }
     }
 }

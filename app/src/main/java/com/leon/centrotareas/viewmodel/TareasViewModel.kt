@@ -6,7 +6,7 @@ import com.leon.centrotareas.data.TareasRepository
 import com.leon.centrotareas.model.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-class TareasViewModel(private val repo:TareasRepository):ViewModel() {
+class TareasViewModel(private val repo:TareasRepository,private val almacen:com.leon.centrotareas.data.HistorialRepository=com.leon.centrotareas.data.HistorialMemoria()):ViewModel() {
     private val _mensaje=MutableStateFlow("Listo")
     val mensaje:StateFlow<String> = _mensaje.asStateFlow()
     private val _primos=MutableStateFlow<PrimosUi>(PrimosUi.Inicial)
@@ -44,7 +44,9 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
                 _progresoPrimos.value=0f
                 var cantidad=0
                 repo.progresoPrimos(hasta).collect { _progresoPrimos.value=it.progreso;cantidad=it.cantidad }
-                _primos.value=PrimosUi.Listo(cantidad,System.currentTimeMillis()-inicio)
+                val duracion=System.currentTimeMillis()-inicio
+                _primos.value=PrimosUi.Listo(cantidad,duracion)
+                guardar("Primos","$cantidad hasta $hasta",duracion)
             } catch(e:CancellationException) { _primos.value=PrimosUi.Cancelado;throw e }
         }
     }
@@ -70,7 +72,10 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
                     val c=async { repo.cargarPedidos(fallo) }
                     a.await() to c.await()
                 } else repo.cargarPerfil() to repo.cargarPedidos(fallo) } }
-                _carga.value=CargaUi.Exito(if(paralelo)"A la vez" else "Una por una",perfil,pedidos.size,System.currentTimeMillis()-inicio)
+                val duracion=System.currentTimeMillis()-inicio
+                val modo=if(paralelo)"A la vez" else "Una por una"
+                _carga.value=CargaUi.Exito(modo,perfil,pedidos.size,duracion)
+                guardar("Cargas",modo,duracion)
             } catch(e:TimeoutCancellationException) { _carga.value=CargaUi.Error("Tardó demasiado") }
             catch(e:CancellationException) { _carga.value=CargaUi.Inicial;throw e }
             catch(e:Exception) { _carga.value=CargaUi.Error("No se pudo cargar: ${e.message ?: "Error inesperado"}") }
@@ -100,4 +105,12 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
     }
     private val _progresoPrimos=MutableStateFlow(0f)
     val progresoPrimos:StateFlow<Float> = _progresoPrimos.asStateFlow()
+    val historial=almacen.resultados.stateIn(viewModelScope,SharingStarted.WhileSubscribed(5000),emptyList())
+    private val _aviso=MutableStateFlow<String?>(null)
+    val aviso:StateFlow<String?> = _aviso.asStateFlow()
+    private suspend fun guardar(tipo:String,resumen:String,ms:Long) {
+        try { almacen.agregar(ResultadoGuardado(java.util.UUID.randomUUID().toString(),tipo,resumen,ms,System.currentTimeMillis())) }
+        catch(e:CancellationException) { throw e }
+        catch(e:Exception) { _aviso.value="El resultado se obtuvo, pero no se pudo guardar" }
+    }
 }

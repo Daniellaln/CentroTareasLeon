@@ -67,3 +67,19 @@ La UI solo observa el ViewModel y comunica acciones; no consulta repositorios ni
 | 4. Primos con progreso | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Primos con progreso conservando las interfaces y cancelación de la base. | Cumplir la mejora sin mover lógica de trabajo a Compose. |
 
 Diferencia frente a la base: se incorpora primos con progreso. Reflexión: cada estado visible debe corresponder a trabajo real. Comprobar: el caso de éxito, cancelación y recuperación descritos arriba.
+
+## 5. Historial persistente
+
+```text
+Compórtate como un experto en Kotlin, corrutinas y arquitectura MVVM para Android. Ayúdame a incorporar historial persistente a CentroTareasLeon, paquete com.leon.centrotareas, partiendo del avance anterior en mejora-ia. Conserva main, los modelos de estado, el resto de funciones y las tres tareas de la guía. El proyecto usa Compose Material3 y JDK21; no necesita Firebase, permisos ni Internet para simular cargas.
+
+Añade androidx.datastore:datastore-preferences:1.3.0 y crea HistorialRepository con un Flow<List<ResultadoGuardado>> y suspend agregar(resultado). El modelo contiene id, tipo, resumen, milisegundos y fecha. Implementa HistorialDataStore mediante un delegado global único sobre applicationContext, archivo historial_tareas, almacenando JSON en una clave de preferencias. Usa edit atómico: inserta primero y toma los últimos cinco. Recupera IOException sin borrar otros datos; notifica fallo de escritura con un aviso de VM y conserva el resultado en pantalla. La Factory recibe applicationContext y lo entrega al Repository, nunca al ViewModel. Inyecta HistorialRepository en TareasViewModel con implementación en memoria por defecto para pruebas. Guarda solo resultados exitosos de primos y cargas. Mantén IDs únicos y no guardes cancelados ni errores como éxitos. Muestra los cinco al abrir y comprueba un cierre completo/reapertura con datos reales de DataStore.
+
+La UI solo observa el ViewModel y comunica acciones; no consulta repositorios ni lanza trabajos. El ViewModel depende de interfaces sin Context. Conserva la cancelación estructurada y evita GlobalScope, runBlocking y Thread.sleep en código de producción. Compila con gradlew.bat assembleDebug testDebugUnitTest (o ./gradlew en Mac) y comprueba este cambio antes de seguir al próximo prompt. Puedes consultar el código de este avance en el historial Git de la rama para reproducir firmas y etiquetas exactas.
+```
+
+| Prompt | Qué respondió Gemini | Qué adapté | Por qué |
+|---|---|---|---|
+| 5. Historial persistente | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Historial persistente conservando las interfaces y cancelación de la base. | Cumplir la mejora sin mover lógica de trabajo a Compose. |
+
+Diferencia frente a la base: se incorpora historial persistente. Reflexión: cada estado visible debe corresponder a trabajo real. Comprobar: el caso de éxito, cancelación y recuperación descritos arriba.
