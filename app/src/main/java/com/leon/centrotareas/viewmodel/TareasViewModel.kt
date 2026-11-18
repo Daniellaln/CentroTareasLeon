@@ -27,10 +27,7 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
             _mensaje.value="Trabajando..."
             Log.d("HILO","Antes: ${Thread.currentThread().name}")
             _progreso.value=0f
-            withContext(Dispatchers.Default) {
-                Log.d("HILO","Dentro: ${Thread.currentThread().name}")
-                for(i in 1..100) { delay(40);_progreso.value=i/100f }
-            }
+            repo.progresoTarea().collect { _progreso.value=it }
             Log.d("HILO","Después: ${Thread.currentThread().name}")
             _mensaje.value="Terminó"
             } catch(e:CancellationException) { _mensaje.value="Cancelado";throw e }
