@@ -56,6 +56,11 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
                 }
             }
             Seccion("Dos cargas") {
+                val mediciones by vm.mediciones.collectAsStateWithLifecycle()
+                if(mediciones.isNotEmpty()) {
+                    Text("Comparación de tiempos",fontWeight=FontWeight.Bold)
+                    mediciones.forEach { Text("${it.numero} · ${it.modo} · ${it.milisegundos} ms") }
+                }
                 val reintento by vm.reintentar.collectAsStateWithLifecycle()
                 val intento by vm.intento.collectAsStateWithLifecycle()
                 Row(verticalAlignment=Alignment.CenterVertically) { Switch(reintento,vm::cambiarReintento);Text("Reintento automático") }

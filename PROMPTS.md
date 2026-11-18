@@ -83,3 +83,19 @@ La UI solo observa el ViewModel y comunica acciones; no consulta repositorios ni
 | 5. Historial persistente | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Historial persistente conservando las interfaces y cancelación de la base. | Cumplir la mejora sin mover lógica de trabajo a Compose. |
 
 Diferencia frente a la base: se incorpora historial persistente. Reflexión: cada estado visible debe corresponder a trabajo real. Comprobar: el caso de éxito, cancelación y recuperación descritos arriba.
+
+## 6. Comparación de tiempos
+
+```text
+Compórtate como un experto en Kotlin, corrutinas y arquitectura MVVM para Android. Ayúdame a incorporar comparación de tiempos a CentroTareasLeon, paquete com.leon.centrotareas, partiendo del avance anterior en mejora-ia. Conserva main, los modelos de estado, el resto de funciones y las tres tareas de la guía. El proyecto usa Compose Material3 y JDK21; no necesita Firebase, permisos ni Internet para simular cargas.
+
+Añade MedicionCarga(numero,modo,milisegundos) y un StateFlow<List<MedicionCarga>> al ViewModel. Acumula únicamente las cargas exitosas de la sesión, hasta20 mediciones, con número consecutivo. El tiempo medido comprende la operación completa, incluidas esperas de reintento si se activaron. Presenta filas de ejecución, modo y milisegundos, y resúmenes separados de Una por una y A la vez cuando existan ambas. No pongas5s/3s fijos como si fueran mediciones. Conserva las cargas simuladas de2 y3s y documenta que la comparación depende del equipo y configuración. Comprueba que alternar modos agrega filas y que cancelar/fallar no agrega una fila exitosa.
+
+La UI solo observa el ViewModel y comunica acciones; no consulta repositorios ni lanza trabajos. El ViewModel depende de interfaces sin Context. Conserva la cancelación estructurada y evita GlobalScope, runBlocking y Thread.sleep en código de producción. Compila con gradlew.bat assembleDebug testDebugUnitTest (o ./gradlew en Mac) y comprueba este cambio antes de seguir al próximo prompt. Puedes consultar el código de este avance en el historial Git de la rama para reproducir firmas y etiquetas exactas.
+```
+
+| Prompt | Qué respondió Gemini | Qué adapté | Por qué |
+|---|---|---|---|
+| 6. Comparación de tiempos | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Comparación de tiempos conservando las interfaces y cancelación de la base. | Cumplir la mejora sin mover lógica de trabajo a Compose. |
+
+Diferencia frente a la base: se incorpora comparación de tiempos. Reflexión: cada estado visible debe corresponder a trabajo real. Comprobar: el caso de éxito, cancelación y recuperación descritos arriba.

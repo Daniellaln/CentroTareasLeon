@@ -75,6 +75,7 @@ class TareasViewModel(private val repo:TareasRepository,private val almacen:com.
                 val duracion=System.currentTimeMillis()-inicio
                 val modo=if(paralelo)"A la vez" else "Una por una"
                 _carga.value=CargaUi.Exito(modo,perfil,pedidos.size,duracion)
+                _mediciones.value=(_mediciones.value+MedicionCarga(++numeroMedicion,modo,duracion)).takeLast(20)
                 guardar("Cargas",modo,duracion)
             } catch(e:TimeoutCancellationException) { _carga.value=CargaUi.Error("Tardó demasiado") }
             catch(e:CancellationException) { _carga.value=CargaUi.Inicial;throw e }
@@ -113,4 +114,7 @@ class TareasViewModel(private val repo:TareasRepository,private val almacen:com.
         catch(e:CancellationException) { throw e }
         catch(e:Exception) { _aviso.value="El resultado se obtuvo, pero no se pudo guardar" }
     }
+    private val _mediciones=MutableStateFlow<List<MedicionCarga>>(emptyList())
+    val mediciones:StateFlow<List<MedicionCarga>> = _mediciones.asStateFlow()
+    private var numeroMedicion=0
 }
