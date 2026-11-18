@@ -11,7 +11,21 @@ class MejorasRepositoryTest {
         val datos=TareasRepositoryLocal().progresoPrimos(10000).toList()
         assertEquals(0f,datos.first().progreso);assertEquals(1f,datos.last().progreso)
         assertEquals(1229,datos.last().cantidad)
+        assertEquals(10000,datos.last().evaluado)
+        assertTrue(datos.zipWithNext().all { (a,b)->a.evaluado<=b.evaluado })
         assertTrue(datos.zipWithNext().all { (a,b)->a.progreso<=b.progreso })
+    }
+    @Test fun cargasEmitenSusPasosYElResultadoDesdeUnTrabajador()=runTest {
+        val repo=TareasRepositoryLocal()
+        val perfil=async { repo.progresoPerfil().toList() }
+        val pedidos=async { repo.progresoPedidos(false).toList() }
+        val a=perfil.await();val c=pedidos.await()
+        assertEquals("Ana Torres (ficticia)",a.last().resultado)
+        assertEquals(3,c.last().resultado!!.size)
+        assertTrue(a.any { it.progreso>0 && it.progreso<1 })
+        assertTrue(c.any { it.progreso>0 && it.progreso<1 })
+        assertTrue(a.all { it.hilo.startsWith("DefaultDispatcher") })
+        assertTrue(c.zipWithNext().all { (x,y)->x.progreso<=y.progreso })
     }
     @Test fun historialConservaSoloCincoMasRecientesYNoDuplicaIds()=runTest {
         val repo=HistorialMemoria()

@@ -26,6 +26,8 @@ Teléfono Android y emulador en clase. Medidas reales de tiempo dependen del equ
 
 Confirmado por Daniella: azul y vidrio claro, fondo blanco frío, una tarea visible a la vez e historial aparte. Interfaz breve, fácil de usar, controles grandes; la presentación no debe entorpecer la demostración.
 
+Daniella rechazó el primer acabado por verse demasiado simple y pidió animaciones que expliquen los procesos: contar primos y ejecutar por separado o a la vez. Se refuerza el material azul/vidrio y se incorpora una imagen generada solo en el área de trabajo. La visualización debe seguir los estados del Repository; el hilo principal conserva un control visible para probar la respuesta.
+
 ## Evidence on Hand
 
 Guía GLAB-S14, capturas reales y pruebas de fase1 en docs. La implementación se hace con asistencia de Codex. Los prompts para Gemini son de reproducción; no se inventan respuestas de sesiones no realizadas.

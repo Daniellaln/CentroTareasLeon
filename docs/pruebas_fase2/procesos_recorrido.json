@@ -1,0 +1,11 @@
+{
+  "capturas_reales": [
+    "20_secuencial_en_marcha.png",
+    "21_paralelo_en_marcha.png"
+  ],
+  "grabacion": "procesos.mp4",
+  "duracion_grabacion_segundos": 14,
+  "movimiento_reducido": true,
+  "escala_restaurada": "null",
+  "letra_grande_final100": true
+}

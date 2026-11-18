@@ -9,6 +9,9 @@ import com.leon.centrotareas.ui.PantallaTareas
 import com.leon.centrotareas.ui.theme.CentroTareasTheme
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import androidx.compose.ui.semantics.SemanticsProperties
 import org.junit.*
 import org.junit.Assert.*
 class CentroTareasTest {
@@ -111,6 +114,76 @@ class CentroTareasTest {
         assertEquals(1,vm.mediciones.value.size)
         ui.runOnIdle { vm.cambiarLimite(true);vm.cargarUnaPorUna() };ui.waitUntil(6000) { vm.carga.value is CargaUi.Error }
         assertEquals(1,vm.mediciones.value.size)
+    }
+    @Test fun reintentoNoHeredaElMarcadorAnteriorYMantieneAnimacion() {
+        val fallar=CompletableDeferred<Unit>();val nuevo=MutableStateFlow(.01f)
+        var perfiles=0;var pedidos=0
+        val repo=object:TareasRepository {
+            override suspend fun contarPrimos(hasta:Int)=0
+            override suspend fun cargarPerfil():String=error("Usa el Flow")
+            override suspend fun cargarPedidos(simularError:Boolean):List<String> = error("Usa el Flow")
+            override fun progresoPerfil()=flow<AvanceCarga<String>> {
+                if(++perfiles==1) { emit(AvanceCarga(.8f));awaitCancellation() }
+                else nuevo.collect { emit(AvanceCarga(it)) }
+            }
+            override fun progresoPedidos(simularError:Boolean)=flow<AvanceCarga<List<String>>> {
+                if(++pedidos==1) { emit(AvanceCarga(.8f));fallar.await();throw java.io.IOException("Primer intento") }
+                else nuevo.collect { emit(AvanceCarga(it)) }
+            }
+        }
+        val vm=mostrar(repo);ui.onNodeWithText("Cargas").performClick()
+        ui.runOnIdle { vm.cambiarReintento(true);vm.cargarALaVez() }
+        ui.waitUntil { vm.perfilVisible.value.progreso==.8f && vm.pedidosVisible.value.progreso==.8f }
+        ui.waitForIdle()
+        fun pintado()=ui.onNodeWithContentDescription("Corrutina Perfil, En curso").fetchSemanticsNode().config[SemanticsProperties.ProgressBarRangeInfo].current
+        assertEquals(.8f,pintado(),.001f)
+        ui.mainClock.autoAdvance=false
+        try {
+            ui.runOnIdle { fallar.complete(Unit) }
+            ui.waitUntil(5000) { vm.intento.value==2 && vm.perfilVisible.value.progreso==.01f }
+            ui.mainClock.advanceTimeByFrame()
+            assertTrue("El intento nuevo arrastra el anterior",pintado()<=.02f)
+            ui.runOnIdle { nuevo.value=.5f }
+            ui.waitUntil { vm.perfilVisible.value.progreso==.5f }
+            ui.mainClock.advanceTimeByFrame();ui.mainClock.advanceTimeBy(48)
+            val intermedio=pintado();assertTrue(intermedio>.01f && intermedio<.5f)
+        } finally { ui.mainClock.autoAdvance=true;ui.runOnIdle { vm.cancelarCarga() } }
+    }
+    @Test fun procesosSecuencialesEsperanElResultadoAnterior() {
+        val perfil=CompletableDeferred<Unit>();val pedidos=CompletableDeferred<Unit>()
+        val repo=object:TareasRepository {
+            override suspend fun contarPrimos(hasta:Int)=0
+            override suspend fun cargarPerfil():String { perfil.await();return "Ana" }
+            override suspend fun cargarPedidos(simularError:Boolean):List<String> { pedidos.await();return listOf("101") }
+        }
+        val vm=mostrar(repo);ui.runOnIdle { vm.cargarUnaPorUna() }
+        ui.waitUntil { vm.perfilVisible.value.fase==FaseProceso.Trabajando }
+        assertEquals(FaseProceso.Esperando,vm.pedidosVisible.value.fase)
+        ui.runOnIdle { perfil.complete(Unit) }
+        ui.waitUntil { vm.pedidosVisible.value.fase==FaseProceso.Trabajando }
+        assertEquals(FaseProceso.Listo,vm.perfilVisible.value.fase)
+        ui.runOnIdle { pedidos.complete(Unit) };ui.waitUntil { vm.carga.value is CargaUi.Exito }
+        assertEquals(FaseProceso.Listo,vm.pedidosVisible.value.fase)
+    }
+    @Test fun procesosParalelosSeSuperponenYAmbosSeCancelan() {
+        val repo=object:TareasRepository {
+            override suspend fun contarPrimos(hasta:Int)=0
+            override suspend fun cargarPerfil():String { awaitCancellation() }
+            override suspend fun cargarPedidos(simularError:Boolean):List<String> { awaitCancellation() }
+        }
+        val vm=mostrar(repo);ui.runOnIdle { vm.cargarALaVez() }
+        ui.waitUntil { vm.perfilVisible.value.fase==FaseProceso.Trabajando && vm.pedidosVisible.value.fase==FaseProceso.Trabajando }
+        ui.runOnIdle { vm.cancelarCarga() };ui.waitUntil { vm.carga.value==CargaUi.Inicial }
+        assertEquals(FaseProceso.Cancelado,vm.perfilVisible.value.fase);assertEquals(FaseProceso.Cancelado,vm.pedidosVisible.value.fase)
+    }
+    @Test fun cambiarDeTareaNoReiniciaNiCancelaElTrabajoActivo() {
+        val vm=mostrar();ui.onNodeWithText("Iniciar").performClick()
+        ui.onNodeWithText("Primos").performClick();ui.onNodeWithText("Hasta el número").assertIsDisplayed()
+        ui.onNodeWithText("Cargas").performClick();ui.onNodeWithText("Dos cargas").assertIsDisplayed()
+        ui.onNodeWithText("Progreso").performClick()
+        assertTrue(vm.corriendo.value)
+        ui.onNodeWithText("Cancelar tarea").performClick();ui.waitUntil { !vm.corriendo.value }
+        assertEquals("Cancelado",vm.mensaje.value)
     }
     @Test fun opcionesSonControlesUnicosConNombreEstadoYAccion() {
         val vm=mostrar();ui.onNodeWithText("Cargas").performClick()

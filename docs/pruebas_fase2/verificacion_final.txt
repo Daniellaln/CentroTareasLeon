@@ -68,21 +68,21 @@
 > Task :app:bundleDebugClassesToRuntimeJar
 > Task :app:mergeProjectDexDebug
 > Task :app:bundleDebugClassesToCompileJar
-> Task :app:compileDebugUnitTestKotlin UP-TO-DATE
-> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
-> Task :app:processDebugUnitTestJavaRes UP-TO-DATE
-> Task :app:testDebugUnitTest
-> Task :app:generateDebugAndroidTestLintModel
-> Task :app:generateDebugLintReportModel
-> Task :app:generateDebugUnitTestLintModel
 > Task :app:packageDebug
 > Task :app:createDebugApkListingFileRedirect UP-TO-DATE
 > Task :app:assembleDebug
+> Task :app:compileDebugUnitTestKotlin
+> Task :app:generateDebugAndroidTestLintModel
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes UP-TO-DATE
+> Task :app:testDebugUnitTest
+> Task :app:generateDebugLintReportModel
+> Task :app:generateDebugUnitTestLintModel
 > Task :app:lintAnalyzeDebugAndroidTest
 > Task :app:lintAnalyzeDebugUnitTest
 
 > Task :app:compileDebugAndroidTestKotlin
-w: file:///C:/Users/vladb/Desktop/JyL/laboratorio/LAB14-Planificacion/CentroTareasLeon/app/src/androidTest/java/com/leon/centrotareas/CentroTareasTest.kt:15:22 'fun createComposeRule(effectContext: CoroutineContext = ...): ComposeContentTestRule' is deprecated. Use `androidx.compose.ui.test.junit4.v2.createComposeRule` instead. The v2 APIs use StandardTestDispatcher instead of UnconfinedTestDispatcher, which aligns with standard coroutine behavior by queuing tasks rather than executing them immediately. Tests relying on immediate execution may require explicit synchronization. Please refer to the migration guide for more details.
+w: file:///C:/Users/vladb/Desktop/JyL/laboratorio/LAB14-Planificacion/CentroTareasLeon/app/src/androidTest/java/com/leon/centrotareas/CentroTareasTest.kt:18:22 'fun createComposeRule(effectContext: CoroutineContext = ...): ComposeContentTestRule' is deprecated. Use `androidx.compose.ui.test.junit4.v2.createComposeRule` instead. The v2 APIs use StandardTestDispatcher instead of UnconfinedTestDispatcher, which aligns with standard coroutine behavior by queuing tasks rather than executing them immediately. Tests relying on immediate execution may require explicit synchronization. Please refer to the migration guide for more details.
 
 > Task :app:compileDebugAndroidTestJavaWithJavac UP-TO-DATE
 > Task :app:processDebugAndroidTestJavaRes UP-TO-DATE
@@ -92,20 +92,22 @@ w: file:///C:/Users/vladb/Desktop/JyL/laboratorio/LAB14-Planificacion/CentroTare
 > Task :app:packageDebugAndroidTest
 > Task :app:createDebugAndroidTestApkListingFileRedirect UP-TO-DATE
 > Task :app:lintAnalyzeDebug
-Starting 14 tests on Pixel_8_Pro_2(AVD) - 17
-Pixel_8_Pro_2(AVD) - 17 Tests 1/14 completed. (0 skipped) (0 failed)
+Starting 18 tests on Pixel_8_Pro_2(AVD) - 17
+Pixel_8_Pro_2(AVD) - 17 Tests 1/18 completed. (0 skipped) (0 failed)
 > Task :app:connectedDebugAndroidTest
 
-Pixel_8_Pro_2(AVD) - 17 Tests 4/14 completed. (0 skipped) (0 failed)
-Pixel_8_Pro_2(AVD) - 17 Tests 7/14 completed. (0 skipped) (0 failed)
-Pixel_8_Pro_2(AVD) - 17 Tests 10/14 completed. (0 skipped) (0 failed)
-Finished 14 tests on Pixel_8_Pro_2(AVD) - 17
+Pixel_8_Pro_2(AVD) - 17 Tests 3/18 completed. (0 skipped) (0 failed)
+Pixel_8_Pro_2(AVD) - 17 Tests 5/18 completed. (0 skipped) (0 failed)
+Pixel_8_Pro_2(AVD) - 17 Tests 9/18 completed. (0 skipped) (0 failed)
+Pixel_8_Pro_2(AVD) - 17 Tests 11/18 completed. (0 skipped) (0 failed)
+Pixel_8_Pro_2(AVD) - 17 Tests 14/18 completed. (0 skipped) (0 failed)
+Finished 18 tests on Pixel_8_Pro_2(AVD) - 17
 
 > Task :app:lintReportDebug UP-TO-DATE
 > Task :app:lintDebug
 
 [Incubating] Problems report is available at: file:///C:/Users/vladb/Desktop/JyL/laboratorio/LAB14-Planificacion/CentroTareasLeon/build/reports/problems/problems-report.html
 
-BUILD SUCCESSFUL in 1m 24s
-83 actionable tasks: 19 executed, 64 up-to-date
+BUILD SUCCESSFUL in 1m 47s
+83 actionable tasks: 20 executed, 63 up-to-date
 Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.3.1/userguide/configuration_cache_enabling.html

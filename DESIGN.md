@@ -1,6 +1,6 @@
 ---
-name: CentroTareas
-description: "Android nativo: azul, lectura mate y vidrio claro en controles."
+name: "CentroTareas"
+description: "Android nativo: vidrio azul, ilustración compartida y procesos observados."
 colors:
   primary: "#195DAA"
   on-primary: "#FFFFFF"
@@ -42,6 +42,8 @@ colors:
   glass-fallback-end: "#DCEBFB"
   dark-glass-fallback-start: "#182943"
   dark-glass-fallback-end: "#0C182A"
+  accent-glass-fallback-end: "#104582"
+  glass-accent-content: "#FFFFFF"
 typography:
   display-medium:
     fontFamily: "sans-serif"
@@ -115,8 +117,28 @@ typography:
     fontWeight: 500
     lineHeight: "20sp"
     letterSpacing: "0.1sp"
+  process-title:
+    fontFamily: "sans-serif"
+    fontSize: "16sp"
+    fontWeight: 600
+    lineHeight: "24sp"
+    letterSpacing: "0.2sp"
+  selected-tab:
+    fontFamily: "sans-serif"
+    fontSize: "14sp"
+    fontWeight: 700
+    lineHeight: "20sp"
+    letterSpacing: "0.1sp"
+  compact-dial:
+    fontFamily: "sans-serif"
+    fontSize: "28sp"
+    fontWeight: 400
+    lineHeight: "36sp"
+    letterSpacing: "0sp"
 rounded:
   glass: "30dp"
+  selection-indicator: "26dp"
+  tab-touch-shape: "28dp"
 spacing:
   inline-detail: "6dp"
   compact: "8dp"
@@ -125,15 +147,15 @@ spacing:
   field-gap: "16dp"
   section-intro: "20dp"
   section: "24dp"
-  primary-horizontal: "28dp"
-  display-gap: "32dp"
   wide-columns: "36dp"
+  indicator-inset: "4dp"
 components:
   button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.label-large}"
-    padding: "0dp 28dp"
+    textColor: "{colors.glass-accent-content}"
+    typography: "{typography.title-medium}"
+    rounded: "{rounded.glass}"
+    padding: "0dp 16dp"
+    width: "140dp"
     height: "56dp"
   button-outlined:
     textColor: "{colors.primary}"
@@ -149,6 +171,12 @@ components:
     rounded: "{rounded.glass}"
     padding: "0dp 16dp"
     height: "60dp"
+  button-main-thread-phone:
+    textColor: "{colors.primary}"
+    typography: "{typography.label-large}"
+    rounded: "{rounded.glass}"
+    padding: "0dp 16dp"
+    height: "56dp"
   glass-history:
     textColor: "{colors.primary}"
     rounded: "{rounded.glass}"
@@ -156,10 +184,11 @@ components:
   glass-selector:
     rounded: "{rounded.glass}"
     height: "56dp"
+  selection-indicator:
+    rounded: "{rounded.selection-indicator}"
   segment-selected:
-    backgroundColor: "{colors.primary-container}"
     textColor: "{colors.on-primary-container}"
-    typography: "{typography.label-large}"
+    typography: "{typography.selected-tab}"
   segment-unselected:
     textColor: "{colors.on-surface}"
     typography: "{typography.label-large}"
@@ -170,6 +199,13 @@ components:
     textColor: "{colors.on-surface}"
     typography: "{typography.body-large}"
     height: "56dp"
+  process-track:
+    textColor: "{colors.on-surface}"
+    typography: "{typography.process-title}"
+    height: "28dp"
+  progress-dial:
+    textColor: "{colors.primary}"
+    typography: "{typography.display-medium}"
 ---
 # Design System: CentroTareas
 
@@ -177,20 +213,21 @@ components:
 
 **Creative North Star: "Azul y vidrio claro"**
 
-Azul profundo y celeste sobre blanco frío. La lectura permanece mate y nítida; el vidrio da presencia a la selección y a los controles. El tema oscuro conserva las mismas funciones de color y responde a la preferencia del sistema.
+Azul profundo y celeste sobre blanco frío. La lectura permanece mate y nítida; el vidrio da presencia a selección y controles. Una ilustración de cintas azules compartida con las lentes refuerza el área de trabajo. El tema oscuro reduce su intensidad y responde a la preferencia del sistema.
 
-Es un sistema Android nativo con Compose Material3. La tipografía y los controles mantienen sus convenciones de plataforma; el material propio se limita a superficies procedurales, bordes luminosos y respuesta de presión. No existe una composición raster que actúe como autoridad.
+Es un sistema Android nativo con Compose Material3. La tipografía conserva sus convenciones de plataforma, mientras el material propio usa bordes luminosos, presión elástica y selección móvil. Dial y pistas animadas representan progreso observado: la ilustración es expresiva, los datos y las fases son reales.
 
 **Key Characteristics:**
 
-- Lectura oscura sobre superficies claras en el tema diurno.
-- Vidrio localizado en selección y controles; texto sin distorsión.
-- Jerarquía y estados nativos Material3.
-- Azul para acción y medición; rojo semántico para error.
+- Lectura separada del área ilustrada y texto sin distorsión.
+- Vidrio azul para acción principal y vidrio claro para selección y prueba de respuesta.
+- Jerarquía Material3 y controles con semántica nativa.
+- Movimiento breve ligado a selección, presión y avances observados.
+- Cian para finalización, rojo semántico para error y tinta secundaria para espera o cancelación.
 
-Autoridad: `app/src/main/java/com/leon/centrotareas/ui/theme/Theme.kt`, `ui/PantallaTareas.kt` y `ui/CristalTareas.kt`. El contrato de la pantalla está en `.impeccable/surfaces/om-leon-centrotareas-ui-pantallatareas-kt-50e76765.md`; su composición no establece una plantilla obligatoria para toda pantalla futura. Este documento registra la implementación, no nuevas decisiones de identidad.
+Autoridad: `app/src/main/java/com/leon/centrotareas/ui/theme/Theme.kt`, `ui/PantallaTareas.kt`, `ui/CristalTareas.kt`, `ui/AcabadoTareas.kt` y `ui/ProcesosAnimados.kt`. La identidad azul/vidrio sigue vigente; el refuerzo de material y visualizaciones responde al contrato ampliado de `../direccion_fase2.md`. La composición de esta pantalla no impone una plantilla universal a pantallas futuras.
 
-El frontmatter usa unidades Android: dp para geometría y sp para texto. Las alturas de componentes que se implementan con `heightIn(min=…)` son mínimos; no bloquear su crecimiento con texto grande. Los valores `height` de `button-glass` y `size` de `glass-history` sí son dimensiones actuales fijas. Las claves `dark-*` sustituyen a su pareja clara al activar el tema oscuro, no son una segunda paleta simultánea. Los roles Material3 no sobrescritos siguen el esquema por defecto de la dependencia; no inventarles tokens propios.
+El frontmatter usa dp para geometría y sp para texto. Las alturas de contorno, texto, selector e interruptor son mínimos (`heightIn`); las de los botones de vidrio son dimensiones fijas actuales. `process-track.height` mide solo el Canvas, no toda su fila. `progress-dial` adapta su tamaño al espacio y fuente como se documenta en Layout. Las parejas `dark-*` sustituyen a las claras según el sistema. Los roles Material3 no sobrescritos siguen los defaults de la dependencia.
 
 ## Colors
 
@@ -199,12 +236,12 @@ Una paleta fría con azul de acción y cian de apoyo. Los hexadecimales normativ
 ### Primary
 
 - **Azul de acción** (`primary` / `dark-primary`): iniciar, destacar resultados, iconos y traza medida.
-- **Azul de selección** (`primary-container` y su pareja oscura): fondo del segmento activo; la implementación aplica alfa 0.8 sobre el vidrio. `on-primary-container` mantiene legible su etiqueta.
-- **Texto sobre acción** (`on-primary` y su pareja oscura): etiquetas de botón relleno.
+- **Azul de selección** (`primary-container` y su pareja oscura): base del indicador activo; la implementación aplica un degradado vertical con alfa 0.95 a 0.5 sobre el vidrio. `on-primary-container` mantiene legible su etiqueta.
+- **Texto sobre acción nativa** (`on-primary` y su pareja oscura): roles del esquema Material3. La acción de vidrio acentuado usa `glass-accent-content`, blanco en ambos temas.
 
 ### Secondary
 
-- **Cian de apoyo** (`secondary`, `secondary-container`, `on-secondary-container` y sus parejas oscuras): roles de apoyo del esquema Material3; no compiten con el azul de acción.
+- **Cian de apoyo** (`secondary`, `secondary-container`, `on-secondary-container` y sus parejas oscuras): roles de apoyo del esquema Material3; `secondary` identifica además los procesos terminados.
 
 ### Neutral
 
@@ -214,6 +251,8 @@ Una paleta fría con azul de acción y cian de apoyo. Los hexadecimales normativ
 - **Capas y contornos** (`surface-variant`, `outline`, `outline-variant` y parejas oscuras): soporte de estados nativos y divisores.
 - **Alternativa de vidrio** (`glass-fallback-start`, `glass-fallback-end` y parejas oscuras): extremos del degradado lineal cuando no se dispone de la lente AGSL.
 
+El vidrio acentuado tiene un extremo fallback propio (`accent-glass-fallback-end`); el otro extremo reutiliza `primary`. En AGSL usa una mezcla azul específica, registrada en profundidad.
+
 `error`, `error-container`, `on-error-container` y sus parejas oscuras son colores semánticos de fallo. Los mensajes de error usan `error`; no emplearlo como acento decorativo.
 
 ## Typography
@@ -221,20 +260,23 @@ Una paleta fría con azul de acción y cian de apoyo. Los hexadecimales normativ
 **Display Font:** sans-serif de Material3 (`Typography()`).
 **Body Font:** la misma sans-serif de plataforma; no hay una fuente personalizada.
 
-**Character:** jerarquía nativa, lectura directa y cifras amplias para el progreso. No se fuerza una familia de exhibición ajena a Android. Los tamaños se heredan de Material3; los pesos de encabezados que aparecen en el frontmatter reflejan las sustituciones explícitas de `PantallaTareas.kt`.
+**Character:** jerarquía nativa, lectura directa y cifras amplias para el progreso. No se fuerza una familia de exhibición ajena a Android. Los tamaños se heredan de Material3; los pesos de encabezados que aparecen en el frontmatter reflejan las sustituciones explícitas de `PantallaTareas.kt`, `AcabadoTareas.kt` y `ProcesosAnimados.kt`.
 
 ### Hierarchy
 
 | Token | Estilo nativo y uso |
 | --- | --- |
-| `display-medium` | `displayMedium`: porcentaje de progreso. |
+| `display-medium` | `displayMedium`: porcentaje del dial no compacto. |
+| `compact-dial` | `headlineMedium` regular: porcentaje con ancho disponible menor de 200dp. |
 | `headline-medium` | `headlineMedium` con Bold: título de la tarea. |
 | `headline-small` | `headlineSmall` con Bold: cabecera de pantalla. |
 | `result-headline` | `headlineSmall` con SemiBold: resultado. |
 | `headline-small-regular` | `headlineSmall`: título del historial vacío. |
 | `title-large` | `titleLarge`: título de comparación. |
 | `diagnostic-title` | `titleLarge` con Bold: diagnóstico de respuesta. |
-| `title-medium` | `titleMedium`: estado, botón táctil e historial. |
+| `title-medium` | `titleMedium`: estado, acción principal, botón táctil ancho e historial. |
+| `process-title` | `titleMedium` con SemiBold: nombre de la corrutina. |
+| `selected-tab` | `labelLarge` con Bold: pestaña seleccionada. |
 | `body-large` | `bodyLarge`: lectura general y resumen de resultados. |
 | `body-medium` | `bodyMedium`: diagnóstico breve. |
 | `body-small` | `bodySmall`: notas, tiempos y fechas. |
@@ -246,71 +288,90 @@ La dependencia resuelta es Material3 1.4.0, confirmada mediante dependencyInsigh
 
 ## Layout
 
-La pantalla implementada usa insets de estado, navegación y teclado, margen horizontal de sección y contenido desplazable. El historial ocupa un destino separado con volver nativo y volver del sistema; estas son decisiones de esta superficie, documentadas en su contrato.
+La pantalla usa insets de estado, navegación y teclado, margen horizontal `section` y trabajo desplazable. Al cambiar de tarea se crea un estado de desplazamiento nuevo y el contenido comienza arriba. Historial sigue como destino separado con volver nativo y del sistema.
 
-El ritmo reutiliza `compact`, `control-gap` y `section` para agrupar controles, separar acciones y abrir secciones. `primary-horizontal` pertenece al relleno horizontal del botón principal; no es un paso universal obligatorio. Los valores menores de `inline-detail` y `compact-row` agrupan texto de un mismo resultado. No imponer una retícula adicional.
+A partir de 700dp, el trabajo es flexible y el diagnóstico mide 300dp, separados por `wide-columns`. Por debajo, la fila «Hilo principal» y «Tócame» queda fuera del desplazamiento del trabajo, justo bajo el selector: pesos 1 y 1.2, separación `control-gap`, botón de 56dp e icono de 20dp. En ancho, «Tócame» aparece en la columna derecha, alto 60dp e icono de 24dp; el diagnóstico inferior del teléfono conserva la medición sin duplicar ese botón.
 
-A partir de 700dp de ancho disponible, el trabajo ocupa la columna flexible y el diagnóstico una columna de 300dp, separados por `wide-columns`. Por debajo, ambos se apilan en una columna con divisor. Las acciones se ajustan con `FlowRow`: separación horizontal `control-gap`, vertical `compact`. No hay otros breakpoints propios.
+`CabeceraTrabajo` ocupa la mitad izquierda si su ancho disponible es menor de 500dp, con altura mínima de 112dp; desde 500dp ocupa todo el ancho y su mínimo es 64dp. Su separación de título/detalle usa `compact-row` y relleno vertical `compact`.
 
-Los botones de acción y las filas de interruptor tienen altura mínima de 56dp; el botón táctil de vidrio mide 60dp, y el acceso a historial 56dp con icono de 24dp. Los iconos pequeños usan 20dp o 24dp según el control; el de resultado usa 28dp y el de historial vacío 48dp. Las medidas son las observadas, no una nueva escala de iconos.
+El dial usa un lado de 180dp multiplicado por `max(fontScale,1)`, limitado al ancho disponible. Por debajo de 200dp disponibles cambia a un lado máximo de 140dp y `compact-dial`. En la fila ancha se le reservan 140dp. No fijar cifras de texto en píxeles para conservar este comportamiento.
+
+`FlowRow` ajusta acciones con separación horizontal `control-gap` y vertical `compact`. La acción principal mide 140×56dp; la secundaria mantiene altura mínima de 56dp. Campos, ayuda e historial conservan el ritmo de `inline-detail`, `compact`, `field-gap` y `section`. No se introduce otra retícula.
+
+La ilustración ocupa el 82% derecho del ancho raíz, desde 260dp de altura, conservando su proporción. Se oculta con ancho raíz igual o mayor a 700dp y en el historial. Al dejar el inicio del desplazamiento pierde visibilidad con una transición de 180ms; vuelve al regresar arriba. La región izquierda y los bordes verticales de la textura llevan máscaras en AGSL para separar lectura e imagen.
 
 ## Elevation & Depth
 
-La lectura se apoya en color y espacio, sin tarjetas elevadas alrededor de cada bloque. El vidrio propio añade elevación suave de 6dp, borde luminoso de 1dp y radio `glass`. La sombra usa `ambientShadowColor=0x201C426E` y `spotShadowColor=0x301C426E`; estos valores nativos están en las extensiones del sidecar. El fondo no recibe esa sombra ni el borde.
+La lectura usa color y espacio, sin tarjetas elevadas para cada bloque. Las superficies de vidrio añaden elevación nativa de 6dp, borde luminoso de 1dp y radio `glass`; sombra ambiental `0x201C426E` y puntual `0x301C426E`. El fondo no lleva esa sombra ni borde.
 
-En API33+, AGSL evalúa un campo estático compartido de base azul y manchas azul/cian. La lente desplaza la muestra junto al borde hasta 9dp, la mezcla con una película clara u oscura y suma brillo especular. El desplazamiento se concentra en una banda interior de 14dp; las coordenadas globales mantienen la continuidad entre fondo y controles. No captura otras vistas y no distorsiona el texto ni los iconos, dibujados después.
+En API33+, AGSL comparte campo procedural azul/cian y `cintas_vidrio.png`. `Theme.kt` decodifica la imagen una vez por instancia de recursos mediante `remember(recursos)` y la proporciona a las superficies; cada shader recibe esa misma textura con `BitmapShader`. Las coordenadas globales mantienen continuidad entre fondo y lente. La lente desplaza la muestra en una banda interior de 14dp: refracción de 9dp en reposo a 13dp bajo presión. Añade película clara/oscura y brillo especular; el vidrio acentuado mezcla el resultado con `half3(.055,.24,.50)` a un factor de 0.88. No captura otras vistas ni distorsiona texto, iconos, datos o marcadores dibujados después.
 
-En API24–32, o si falla la creación de `RuntimeShader`, se usa el degradado lineal del frontmatter. Esta alternativa está implementada pero no se probó en emulador antiguo. Las capturas de `.impeccable/review` corresponden a API37, incluidas oscuro, texto ampliado y horizontal; no prueban un teléfono físico.
+La máscara de imagen combina suavizado horizontal de 0.35 a 0.6 del ancho raíz, entrada vertical de 0 a 0.12 y salida de 0.78 a 1 de su alto. Su intensidad máxima es 0.95 en claro y 0.13 en oscuro, multiplicada por la visibilidad animada del arte.
 
-**The Shared Background Rule.** La lente y el fondo evalúan el mismo campo procedural en coordenadas globales. No atribuir a la lente refracción de otras vistas ni del contenido.
+En API24–32, o si falla RuntimeShader, el vidrio usa degradados del frontmatter. El fondo conserva la ilustración, a alfa 0.8 en claro o 0.13 en oscuro, con igual colocación y visibilidad; esa ruta no reproduce las máscaras ni refracción AGSL. El bitmap también se usa como ilustración, no como medición. Esta alternativa sigue sin prueba en API antigua o teléfono físico; la evidencia visual recapturada corresponde a emulador API37.
+
+**The Shared Background Rule.** La lente y el fondo evalúan el mismo campo procedural y la misma textura en coordenadas globales. No atribuir a la lente refracción de otras vistas ni del contenido.
+
+**The Observed Process Rule.** Los marcadores representan progreso y fases del Repository. Interpolar solo dentro de una ejecución o intento; reiniciar inmediatamente al cambiar su identidad.
 
 **The Honest Trace Rule.** La traza representa intervalos reales entre fotogramas. No convertirla en una animación ornamental.
 
 ## Shapes
 
-El material de vidrio tiene esquinas amplias con el radio `glass`; la lente limita su radio calculado a la mitad de la dimensión menor. La forma de los botones rellenos, botones de contorno, campo delineado, interruptores y segmentos procede de Material3. Conservar `SegmentedButtonDefaults.itemShape` para inicio, centro y final de la selección. No convertir los defaults de la dependencia en tokens locales nuevos.
+Vidrio con radio `glass`; el cálculo de la lente limita su radio a la mitad de la dimensión menor. El indicador móvil tiene radio `selection-indicator`, inset `indicator-inset`, degradado vertical de contenedor primario y borde blanco con alfa 0.55 de 1dp. Las áreas táctiles de pestañas usan `tab-touch-shape`. Son formas propias, ya no `SegmentedButtonDefaults.itemShape`. Contorno, campo e interruptores conservan forma Material3.
 
-Los iconos son trazos vectoriales: sus originales están en `docs/recursos/iconos` y su ejecución Android usa VectorDrawable en `app/src/main/res/drawable`. No existe un raster de interfaz que deba conservarse o generarse.
+Los iconos siguen como SVG en `docs/recursos/iconos` y VectorDrawable en `app/src/main/res/drawable`. La imagen `app/src/main/res/drawable-nodpi/cintas_vidrio.png` es textura ilustrativa, sin texto ni controles; su prompt está incrustado en PNG y documentado en `docs/recursos/ORIGEN.md`. No es una composición raster de la UI ni reemplaza sus componentes.
 
 ## Components
 
 ### Buttons
 
-- **Principal:** botón Material3 relleno con pareja `primary` / `on-primary`, altura mínima y relleno del token `button-primary`. Deshabilitado durante una ejecución incompatible.
-- **Contorno:** `OutlinedButton`, altura mínima `button-outlined`; usa estados, borde y forma Material3. Cancelación solo se habilita mientras corresponde.
-- **Texto:** `TextButton` para revelar pruebas o comparación; altura mínima `button-text`. La cancelación de una carga activa usa un mínimo local de 48dp.
-- **Vidrio:** `BotonVidrio` conserva contenido nativo sobre `SuperficieVidrio`. Al presionar, escala a 0.96 y vuelve a 1 con `spring(dampingRatio=0.8, stiffness=600)`. Cuando se deshabilita, la capa completa usa alfa 0.45 y el botón nativo conserva su estado deshabilitado. El botón táctil usa `titleMedium`; el acceso a historial usa solo icono con descripción accesible.
-- **Interacción:** ripple, foco y respuesta nativos de Material3; no hay un estado hover propio del producto. La animación respeta la escala de duración del sistema, incluida su reducción o desactivación. No hay duraciones propias de animación expresadas en milisegundos.
+- **Principal:** `BotonVidrio(acentuado=true)` de 140×56dp, texto `title-medium` blanco y relleno horizontal de 16dp. Usa material azul AGSL o degradado `primary` a `accent-glass-fallback-end`; no es ya un botón relleno plano.
+- **Vidrio claro:** acceso a historial de 56dp, prueba del hilo principal de 56dp en teléfono o 60dp en ancho. El teléfono usa `labelLarge`; el ancho usa `titleMedium`.
+- **Presión compartida:** presión normalizada p con `spring(dampingRatio=0.7, stiffness=600)`, escala X `1+0.025p`, Y `1−0.05p`; alimenta también la refracción. Deshabilitado: alfa de la capa 0.45, sin acción; tinta blanca en acentuado o `onSurfaceVariant` en claro.
+- **Contorno y texto:** controles Material3 para cancelar, reintentar o revelar pruebas/comparación. Altura mínima de 56dp; cancelar carga activa usa mínimo local de 48dp. Foco y ripple proceden de Material3, sin hover propio.
 
-### Selection
+### Selection and task transitions
 
-`SingleChoiceSegmentedButtonRow` en vidrio. El segmento activo usa el contenedor primario con alfa 0.8 y su tinta correspondiente; los inactivos son transparentes con `onSurface`. Los bordes de segmento son transparentes y no se muestra icono de selección. El token de altura del selector es un mínimo, no una restricción para etiquetas ampliadas.
+`SelectorTareas` contiene tres opciones con `selectableGroup` y `selectable(role=Role.Tab)`. Cada una ocupa un tercio del ancho, mínimo 56dp, relleno horizontal 8dp/vertical 12dp. La elegida usa `selected-tab` y `onPrimaryContainer`; las otras `labelLarge` y `onSurface`. El indicador se desplaza con `spring(dampingRatio=0.85, stiffness=500)`; su posición procede de la selección real.
 
-### Inputs / Fields
+`AnimatedContent` cambia el trabajo con entrada de opacidad de 180ms y deslizamiento horizontal de 220ms desde un doceavo del ancho, según dirección del cambio; la salida de opacidad dura 90ms. La imagen cambia visibilidad en 180ms. Estas son transiciones de interfaz, no duraciones del trabajo.
 
-El límite para primos usa `OutlinedTextField` Material3 de una línea, ancho disponible, etiqueta persistente y teclado numérico. Color, forma, borde, foco y tipografía se heredan de Material3. Se bloquea mientras se calcula; un valor inválido impide iniciar mediante el estado del botón. No se inventa un estado visual de error que el campo no implementa.
+### Progress dial
 
-### Options
+`DialProgreso` toma el Flow real, acotado entre 0 y 1, e interpola el dibujo durante 110ms con `LinearOutSlowInEasing`. Sus cien marcas usan trazos de 2dp, radio exterior menos 8dp y marcas de 5dp. El aro interior lleva margen de 24dp y trazo de 6dp, con superficie radial y barrido azul. La cifra muestra el valor real, mientras el dibujo interpola. El nodo une descendientes y publica `ProgressBarRangeInfo` del valor real. `key(ejecucionProgreso)` reinicia la animación al iniciar otra ejecución.
 
-Cada opción es una fila completa con `Row.toggleable(role=Role.Switch)` y un `Switch` sin acción independiente (`onCheckedChange=null`). Texto y estado forman un único control accesible. Su altura es mínima y se deshabilita durante la carga. La apertura de opciones y comparación usa `AnimatedVisibility` con defaults de Compose, sin una duración de tarea convertida en transición.
+### Observed process tracks
 
-### Result and history
+`ProcesoAnimado` muestra nombre `process-title`, fase `labelLarge`, Canvas de 28dp y detalle `bodySmall`. Pista de 4dp, extremos a 12dp, círculo de 7dp y halo de 11dp a alfa 0.15. Terminado añade una marca blanca de 1.5dp. Color por fase: azul trabajando, cian terminado, rojo error, tinta secundaria esperando o cancelado; el cambio cromático dura 160ms.
 
-Resultados legibles sin tarjeta: icono de confirmación, `result-headline` y detalle secundario. Historial con filas, títulos `titleMedium`, resumen `bodyLarge`, tiempo/fecha `bodySmall` y divisor `outlineVariant`. La pantalla vacía usa un icono ilustrativo vectorial y una instrucción breve.
+El marcador interpola 120ms con `LinearOutSlowInEasing` dentro del mismo intento. Publica nombre, fase y rango de progreso accesibles. Perfil y Pedidos tienen pistas independientes ligadas a sus Flow reales: avanzan juntas en paralelo y Pedidos espera a Perfil en secuencial. Primos muestra candidato examinado y cantidad encontrados del estado real; no se anima una cuenta ficticia.
 
-### Measured trace
+`key(ejecucion,intento)` recrea las dos pistas al iniciar o reintentar; `key(ejecucionPrimos)` hace lo mismo para primos. La identidad procede del ViewModel y evita interpolar hacia atrás desde el intento anterior. La regresión 0.8 → 0.01 → 0.5 comprueba reinicio inmediato y posterior interpolación. No extender suavizado entre identidades.
 
-`Canvas` de 70dp de alto con trazo primario de 2dp y guía `outlineVariant` de 1dp. Solo aparece con más de una muestra; normaliza la escala vertical con un máximo mínimo de 33ms. Es una visualización medida, no un indicador decorativo. Su descripción accesible identifica intervalos entre fotogramas en milisegundos.
+### Inputs / Fields and options
 
-El sidecar contiene siete ejemplos HTML/CSS autónomos para el panel. Son traducciones estáticas de referencia (1dp se representa como 1px de CSS), no componentes de producción ni simulaciones de AGSL. Usan la alternativa de degradado y foco del navegador. Estados, semántica y renderizado reales se verifican en Compose.
+`OutlinedTextField` numérico de una línea, ancho disponible, etiqueta persistente y teclado numérico; defaults Material3 de color, forma y foco. Se bloquea mientras calcula, y un valor inválido impide iniciar. No se inventa un error visual del campo.
+
+Las opciones usan una fila `toggleable(Role.Switch)` y `Switch(onCheckedChange=null)`, una sola acción accesible, mínimo 56dp y estado deshabilitado durante carga. Opciones y comparación usan `AnimatedVisibility` con defaults de Compose.
+
+### Result, history and measured trace
+
+Resultado sin tarjeta: confirmación vectorial, `result-headline` y detalle. Historial usa filas `titleMedium`, `bodyLarge`, `bodySmall` y divisor `outlineVariant`, sin ilustración. La traza conserva un Canvas de 70dp, trazo primario de 2dp, guía de 1dp y escala con máximo mínimo de 33ms; aparece con más de una muestra y describe intervalos reales entre fotogramas.
+
+Todo movimiento depende de las APIs de animación Compose y respeta la escala de duración del sistema, incluida su reducción o desactivación. Ninguna espera de tareas, timeout o reintento es un token de movimiento. No hay un bucle ornamental independiente del estado.
+
+El sidecar contiene nueve ejemplos HTML/CSS autónomos para el panel, con equivalencia de referencia 1dp a 1px. Son traducciones, no producción: aproximan el fallback sin cargar la textura, no reproducen AGSL ni resortes Compose y mantienen foco del navegador. Los diagramas de proceso son instantáneas ilustrativas; datos, semántica y movimiento reales se validan en Android.
 
 ## Do's and Don'ts
 
 ### Do:
 
 - Do conservar las parejas de color del tema activo y el escalado de texto del sistema.
-- Do usar el vidrio en controles y mantener el contenido textual nítido.
-- Do conservar las áreas mínimas y el ajuste de acciones con FlowRow.
+- Do mantener el texto nítido y usar la ilustración como fondo, sin cifras ni controles incrustados.
+- Do ligar cada pista y cifra a estados observados, con semántica de progreso y fase.
+- Do reiniciar dial y marcadores al cambiar ejecución o intento, antes de interpolar nuevos valores.
+- Do conservar visibles los controles del hilo principal y el ajuste de acciones con FlowRow.
 - Do asociar cada interruptor a su etiqueta en un único nodo accionable con Role.Switch.
 - Do respetar la reducción de animaciones del sistema y medir el comportamiento real antes de afirmar fluidez.
 
@@ -318,8 +379,9 @@ El sidecar contiene siete ejemplos HTML/CSS autónomos para el panel. Son traduc
 
 - Don't sustituir Typography() por una fuente de exhibición o un tamaño fijo en píxeles.
 - Don't describir la lente como un desenfoque o una captura de vistas subyacentes.
+- Don't prolongar una animación desde el avance del intento anterior al iniciar otro.
 - Don't registrar las esperas de tareas, timeout o reintentos como duraciones de animación.
 - Don't convertir los ejemplos HTML del panel en autoridad sobre la implementación Compose.
 - Don't afirmar validación del fallback en API24–32 ni de teléfono físico: la evidencia disponible corresponde al emulador API37.
 
-No se canonizan omisiones del procedimiento: no hubo semilla de concepto ni tarjeta QUALITY BAR. Tampoco se convierte la prueba del árbol semántico en una auditoría auditiva de TalkBack. El alcance y las correcciones están registrados en `.impeccable/review/PROCESO.md`.
+No se canonizan omisiones del procedimiento: no hubo semilla de concepto ni tarjeta QUALITY BAR. El refuerzo conserva el mundo confirmado; no crea una aprobación retrospectiva. Tampoco se convierte la prueba del árbol semántico en auditoría auditiva de TalkBack. El alcance permanece registrado en `.impeccable/review/PROCESO.md`.

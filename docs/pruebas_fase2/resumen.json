@@ -1,14 +1,14 @@
 [
   {
     "archivo": "TEST-Android.xml",
-    "tests": "14",
+    "tests": "18",
     "failures": "0",
     "errors": "0",
     "skipped": "0"
   },
   {
     "archivo": "TEST-com.leon.centrotareas.MejorasRepositoryTest.xml",
-    "tests": "3",
+    "tests": "4",
     "failures": "0",
     "errors": "0",
     "skipped": "0"

@@ -21,6 +21,7 @@ class TareasViewModel(private val repo:TareasRepository,private val almacen:com.
     fun cancelar() { if(_corriendo.value) { trabajo?.cancel();_mensaje.value="Cancelado" } }
     fun tareaLarga() {
         if(_corriendo.value)return
+        _ejecucionProgreso.value++
         _corriendo.value=true
         trabajo=viewModelScope.launch {
             try {
@@ -37,13 +38,16 @@ class TareasViewModel(private val repo:TareasRepository,private val almacen:com.
     private var calculo:Job?=null
     fun contar(hasta:Int) {
         if(hasta<2 || _primos.value==PrimosUi.Calculando)return
+        _ejecucionPrimos.value++
         _primos.value=PrimosUi.Calculando
+        _avancePrimos.value=AvancePrimos(0f,0)
+        _hastaPrimos.value=hasta
         calculo=viewModelScope.launch {
             try {
                 val inicio=System.currentTimeMillis()
                 _progresoPrimos.value=0f
                 var cantidad=0
-                repo.progresoPrimos(hasta).collect { _progresoPrimos.value=it.progreso;cantidad=it.cantidad }
+                repo.progresoPrimos(hasta).collect { _progresoPrimos.value=it.progreso;_avancePrimos.value=it;cantidad=it.cantidad }
                 val duracion=System.currentTimeMillis()-inicio
                 _primos.value=PrimosUi.Listo(cantidad,duracion)
                 guardar("Primos","$cantidad hasta $hasta",duracion)
@@ -57,29 +61,38 @@ class TareasViewModel(private val repo:TareasRepository,private val almacen:com.
     private var cargaJob:Job?=null
     fun cargarUnaPorUna()=cargar(false)
     fun cargarALaVez()=cargar(true)
-    fun cancelarCarga() { cargaJob?.cancel() }
+    fun cancelarCarga() {
+        if(_carga.value!=CargaUi.Cargando)return
+        cargaJob?.cancel()
+        if(_perfilVisible.value.fase==FaseProceso.Esperando)_perfilVisible.value=_perfilVisible.value.copy(fase=FaseProceso.Cancelado)
+        if(_pedidosVisible.value.fase==FaseProceso.Esperando)_pedidosVisible.value=_pedidosVisible.value.copy(fase=FaseProceso.Cancelado)
+    }
     private fun cargar(paralelo:Boolean) {
         if(_carga.value==CargaUi.Cargando)return
+        _ejecucionCarga.value++
         _carga.value=CargaUi.Cargando
+        _modoCarga.value=if(paralelo)"A la vez" else "Una por una"
         val fallo=_simularError.value
         val usarLimite=_limite.value
         val automatico=_reintentar.value
         cargaJob=viewModelScope.launch {
             try {
                 val inicio=System.currentTimeMillis()
-                val (perfil,pedidos)=conReintentos(automatico) { conLimite(usarLimite) { if(paralelo)coroutineScope {
-                    val a=async { repo.cargarPerfil() }
-                    val c=async { repo.cargarPedidos(fallo) }
+                val (perfil,pedidos)=conReintentos(automatico) {
+                    _perfilVisible.value=ProcesoVisible();_pedidosVisible.value=ProcesoVisible()
+                    conLimite(usarLimite) { if(paralelo)coroutineScope {
+                    val a=async { observarProceso(repo.progresoPerfil(),_perfilVisible) }
+                    val c=async { observarProceso(repo.progresoPedidos(fallo),_pedidosVisible) }
                     a.await() to c.await()
-                } else repo.cargarPerfil() to repo.cargarPedidos(fallo) } }
+                } else observarProceso(repo.progresoPerfil(),_perfilVisible) to observarProceso(repo.progresoPedidos(fallo),_pedidosVisible) } }
                 val duracion=System.currentTimeMillis()-inicio
                 val modo=if(paralelo)"A la vez" else "Una por una"
                 _carga.value=CargaUi.Exito(modo,perfil,pedidos.size,duracion)
                 _mediciones.value=(_mediciones.value+MedicionCarga(++numeroMedicion,modo,duracion)).takeLast(20)
                 guardar("Cargas",modo,duracion)
-            } catch(e:TimeoutCancellationException) { _carga.value=CargaUi.Error("Tardó demasiado") }
-            catch(e:CancellationException) { _carga.value=CargaUi.Inicial;throw e }
-            catch(e:Exception) { _carga.value=CargaUi.Error("No se pudo cargar: ${e.message ?: "Error inesperado"}") }
+            } catch(e:TimeoutCancellationException) { detenerPendientes();_carga.value=CargaUi.Error("Tardó demasiado") }
+            catch(e:CancellationException) { detenerPendientes();_carga.value=CargaUi.Inicial;throw e }
+            catch(e:Exception) { detenerPendientes();_carga.value=CargaUi.Error("No se pudo cargar: ${e.message ?: "Error inesperado"}") }
         }
     }
     private val _limite=MutableStateFlow(false)
@@ -106,6 +119,41 @@ class TareasViewModel(private val repo:TareasRepository,private val almacen:com.
     }
     private val _progresoPrimos=MutableStateFlow(0f)
     val progresoPrimos:StateFlow<Float> = _progresoPrimos.asStateFlow()
+    private val _avancePrimos=MutableStateFlow(AvancePrimos(0f,0))
+    val avancePrimos:StateFlow<AvancePrimos> = _avancePrimos.asStateFlow()
+    private val _hastaPrimos=MutableStateFlow(0)
+    val hastaPrimos:StateFlow<Int> = _hastaPrimos.asStateFlow()
+    private val _perfilVisible=MutableStateFlow(ProcesoVisible())
+    val perfilVisible:StateFlow<ProcesoVisible> = _perfilVisible.asStateFlow()
+    private val _pedidosVisible=MutableStateFlow(ProcesoVisible())
+    val pedidosVisible:StateFlow<ProcesoVisible> = _pedidosVisible.asStateFlow()
+    private val _modoCarga=MutableStateFlow("A la vez")
+    val modoCarga:StateFlow<String> = _modoCarga.asStateFlow()
+    private val _ejecucionCarga=MutableStateFlow(0)
+    val ejecucionCarga:StateFlow<Int> = _ejecucionCarga.asStateFlow()
+    private val _ejecucionPrimos=MutableStateFlow(0)
+    val ejecucionPrimos:StateFlow<Int> = _ejecucionPrimos.asStateFlow()
+    private val _ejecucionProgreso=MutableStateFlow(0)
+    val ejecucionProgreso:StateFlow<Int> = _ejecucionProgreso.asStateFlow()
+    private fun detenerPendientes() {
+        listOf(_perfilVisible,_pedidosVisible).forEach { estado ->
+            if(estado.value.fase==FaseProceso.Esperando || estado.value.fase==FaseProceso.Trabajando)estado.value=estado.value.copy(fase=FaseProceso.Cancelado)
+        }
+    }
+    private suspend fun <T:Any> observarProceso(flujo:Flow<AvanceCarga<T>>,destino:MutableStateFlow<ProcesoVisible>):T {
+        destino.value=ProcesoVisible(FaseProceso.Trabajando)
+        try {
+            var resultado:T?=null
+            flujo.collect { avance ->
+                avance.resultado?.let { resultado=it }
+                destino.value=ProcesoVisible(if(avance.resultado!=null)FaseProceso.Listo else FaseProceso.Trabajando,avance.progreso.coerceIn(0f,1f),avance.hilo)
+            }
+            return requireNotNull(resultado) { "La carga no devolvió un resultado" }
+        } catch(e:CancellationException) {
+            if(destino.value.fase==FaseProceso.Trabajando)destino.value=destino.value.copy(fase=FaseProceso.Cancelado)
+            throw e
+        } catch(e:Exception) { destino.value=destino.value.copy(fase=FaseProceso.Error);throw e }
+    }
     val historial=almacen.resultados.stateIn(viewModelScope,SharingStarted.WhileSubscribed(5000),emptyList())
     private val _aviso=MutableStateFlow<String?>(null)
     val aviso:StateFlow<String?> = _aviso.asStateFlow()

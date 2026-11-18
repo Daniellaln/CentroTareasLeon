@@ -84,6 +84,22 @@
     </issue>
 
     <issue
+        id="LocalContextResourcesRead"
+        severity="Warning"
+        message="Reading Resources using LocalContext.current.resources"
+        category="Correctness"
+        priority="3"
+        summary="Reading Resources using LocalContext.current.resources"
+        explanation="Changes to the Configuration object will not cause LocalContext.current.resources reads to be invalidated, so calls to APIs such as Resources.getString() will not be updated when the Configuration changes. Instead, use LocalResources.current to retrieve the Resources - this will invalidate callers when the Configuration changes, to ensure that these calls reflect the latest values."
+        errorLine1="    val recursos=LocalContext.current.resources"
+        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\vladb\Desktop\JyL\laboratorio\LAB14-Planificacion\CentroTareasLeon\app\src\main\java\com\leon\centrotareas\ui\theme\Theme.kt"
+            line="13"
+            column="18"/>
+    </issue>
+
+    <issue
         id="DataExtractionRules"
         severity="Warning"
         message="The attribute `android:allowBackup` is deprecated from Android 12 and higher and may be removed in future versions. Consider adding the attribute `android:dataExtractionRules` specifying an `@xml` resource which configures cloud backups and device transfers on Android 12 and higher."

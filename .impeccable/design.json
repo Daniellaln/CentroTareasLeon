@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-18T15:23:09.901398+00:00",
+  "generatedAt": "2026-11-18T17:17:00.061497+00:00",
   "title": "Design System: CentroTareas",
   "extensions": {
     "colorMeta": {
@@ -563,12 +563,40 @@
           "oklch(84% 0.03994 258.28)",
           "oklch(95% 0.03994 258.28)"
         ]
+      },
+      "accent-glass-fallback-end": {
+        "role": "primary",
+        "displayName": "Vidrio azul profundo alternativo",
+        "tonalRamp": [
+          "oklch(15% 0.11594 255.26)",
+          "oklch(26% 0.11594 255.26)",
+          "oklch(38% 0.11594 255.26)",
+          "oklch(49% 0.11594 255.26)",
+          "oklch(61% 0.11594 255.26)",
+          "oklch(72% 0.11594 255.26)",
+          "oklch(84% 0.11594 255.26)",
+          "oklch(95% 0.11594 255.26)"
+        ]
+      },
+      "glass-accent-content": {
+        "role": "primary",
+        "displayName": "Tinta de vidrio acentuado",
+        "tonalRamp": [
+          "oklch(15% 0.00000 0.00)",
+          "oklch(26% 0.00000 0.00)",
+          "oklch(38% 0.00000 0.00)",
+          "oklch(49% 0.00000 0.00)",
+          "oklch(61% 0.00000 0.00)",
+          "oklch(72% 0.00000 0.00)",
+          "oklch(84% 0.00000 0.00)",
+          "oklch(95% 0.00000 0.00)"
+        ]
       }
     },
     "typographyMeta": {
       "display-medium": {
         "displayName": "display-medium",
-        "purpose": "Porcentaje de progreso; displayMedium heredado."
+        "purpose": "Porcentaje del dial no compacto."
       },
       "headline-medium": {
         "displayName": "headline-medium",
@@ -596,7 +624,7 @@
       },
       "title-medium": {
         "displayName": "title-medium",
-        "purpose": "Estados, historial y botón táctil."
+        "purpose": "Estados, acción principal, historial y botón táctil ancho."
       },
       "body-large": {
         "displayName": "body-large",
@@ -613,6 +641,18 @@
       "label-large": {
         "displayName": "label-large",
         "purpose": "Controles Material3."
+      },
+      "process-title": {
+        "displayName": "Nombre de proceso",
+        "purpose": "titleMedium con SemiBold."
+      },
+      "selected-tab": {
+        "displayName": "Pestaña activa",
+        "purpose": "labelLarge con Bold."
+      },
+      "compact-dial": {
+        "displayName": "Dial compacto",
+        "purpose": "headlineMedium regular con menos de200dp disponibles."
       }
     },
     "shadows": [
@@ -625,25 +665,73 @@
     "motion": [
       {
         "name": "glass-press",
-        "value": "scale: pressed=0.96, rest=1.0; spring(dampingRatio=0.8, stiffness=600)",
-        "purpose": "BotonVidrio; animateFloatAsState respeta la escala de duración del sistema. Las duraciones del trabajo simulado no son tokens de movimiento."
+        "value": "p=pressed?1:0; spring(dampingRatio=0.7, stiffness=600); scaleX=1+0.025p; scaleY=1-0.05p; refractionDp=9+4p",
+        "purpose": "Presión de BotonVidrio compartida con la lente."
+      },
+      {
+        "name": "tab-indicator",
+        "value": "spring(dampingRatio=0.85, stiffness=500)",
+        "purpose": "Posición del indicador respecto de la pestaña elegida."
+      },
+      {
+        "name": "task-enter-opacity",
+        "value": "tween(180ms)",
+        "purpose": "Entrada de contenido de tarea."
+      },
+      {
+        "name": "task-enter-slide",
+        "value": "tween(220ms); initialOffset=±width/12",
+        "purpose": "Entrada horizontal según orden de pestañas."
+      },
+      {
+        "name": "task-exit-opacity",
+        "value": "tween(90ms)",
+        "purpose": "Salida de contenido de tarea."
+      },
+      {
+        "name": "art-visibility",
+        "value": "tween(180ms)",
+        "purpose": "Ocultar arte al desplazar trabajo y restaurar arriba."
+      },
+      {
+        "name": "dial-progress",
+        "value": "tween(110ms, LinearOutSlowInEasing)",
+        "purpose": "Interpolación de dibujo dentro de ejecución; key(ejecucionProgreso) reinicia inmediatamente."
+      },
+      {
+        "name": "process-marker",
+        "value": "tween(120ms, LinearOutSlowInEasing)",
+        "purpose": "Avance dentro del mismo intento; key(ejecucion,intento) o key(ejecucionPrimos) evita arrastre entre identidades."
+      },
+      {
+        "name": "process-phase-color",
+        "value": "tween(160ms)",
+        "purpose": "Cambio de color según fase observada. Todas las animaciones respetan escala del sistema."
       }
     ],
     "breakpoints": [
       {
         "name": "wide-workspace",
         "value": "700dp"
+      },
+      {
+        "name": "full-work-header",
+        "value": "500dp"
+      },
+      {
+        "name": "compact-dial",
+        "value": "200dp"
       }
     ]
   },
   "components": [
     {
-      "name": "Acción principal",
+      "name": "Acción de vidrio azul",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Button Material3. Vista previa clara; dp a px solo para el panel, sin reproducir ripple nativo.",
+      "description": "BotonVidrio acentuado140×56dp; vista previa fallback sin textura. Foco del navegador; la física real pertenece a Compose.",
       "html": "<button class=\"ds-primary\">Iniciar</button>",
-      "css": ".ds-primary{font-family:sans-serif;font-size:14px;font-weight:500;line-height:20px;letter-spacing:.1px;background:#195DAA;color:#FFFFFF;border:0;border-radius:999px;min-height:56px;padding:0 28px}.ds-primary:hover:not(:disabled){cursor:pointer}.ds-primary:focus-visible{outline:auto}.ds-primary:active:not(:disabled){cursor:pointer}.ds-primary:disabled{background:rgba(19,42,68,.12);color:rgba(19,42,68,.38)}"
+      "css": ".ds-primary{font-family:sans-serif;font-size:16px;font-weight:500;line-height:24px;letter-spacing:.2px;background:linear-gradient(135deg,#195DAA,#104582);color:#fff;border:1px solid rgba(255,255,255,.95);border-radius:30px;width:140px;height:56px;padding:0 16px;box-shadow:0 6px 12px rgba(28,66,110,.12)}.ds-primary:hover:not(:disabled){cursor:pointer}.ds-primary:focus-visible{outline:auto}.ds-primary:active:not(:disabled){transform:scale(1.025,.95)}.ds-primary:disabled{opacity:.45}"
     },
     {
       "name": "Acción de contorno",
@@ -665,17 +753,17 @@
       "name": "Botón de vidrio",
       "kind": "button",
       "refersTo": "button-glass",
-      "description": "BotonVidrio táctil. Preview usa el degradado fallback; no simula AGSL ni fija duración a su resorte. La sombra CSS es una aproximación del panel.",
+      "description": "BotonVidrio claro de columna ancha. Preview fallback sin textura; la presión real usa spring(.7,600), sin duración CSS inventada.",
       "html": "<button class=\"ds-glass\"><svg aria-hidden=\"true\" width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 13V5a3 3 0 0 1 6 0v8M9 10l-3 1a2 2 0 0 0-1 3l4 6h8l3-9-5-2\"/></svg><span>Tócame: 0</span></button>",
-      "css": ".ds-glass{display:flex;align-items:center;justify-content:center;gap:12px;font-family:sans-serif;font-size:14px;font-weight:500;line-height:20px;letter-spacing:.1px;font-size:16px;line-height:24px;letter-spacing:.2px;min-height:60px;width:100%;padding:0 16px;color:#195DAA;background:linear-gradient(135deg,#F5FAFF,#DCEBFB);border:1px solid rgba(255,255,255,.95);border-radius:30px;box-shadow:0 6px 12px rgba(28,66,110,.12)}.ds-glass:hover:not(:disabled){cursor:pointer}.ds-glass:focus-visible{outline:auto}.ds-glass:active:not(:disabled){transform:scale(.96)}.ds-glass:disabled{opacity:.45}"
+      "css": ".ds-glass{display:flex;align-items:center;justify-content:center;gap:12px;font-family:sans-serif;font-size:14px;font-weight:500;line-height:20px;letter-spacing:.1px;font-size:16px;line-height:24px;letter-spacing:.2px;min-height:60px;width:100%;padding:0 16px;color:#195DAA;background:linear-gradient(135deg,#F5FAFF,#DCEBFB);border:1px solid rgba(255,255,255,.95);border-radius:30px;box-shadow:0 6px 12px rgba(28,66,110,.12)}.ds-glass:hover:not(:disabled){cursor:pointer}.ds-glass:focus-visible{outline:auto}.ds-glass:active:not(:disabled){transform:scale(1.025,.95)}.ds-glass:disabled{opacity:.45}"
     },
     {
       "name": "Selector en vidrio",
       "kind": "nav",
       "refersTo": "glass-selector",
-      "description": "Selector exclusivo. Radios HTML traducen la selección nativa; los tres segmentos usan la alternativa de vidrio.",
-      "html": "<div class=\"ds-selector\" role=\"group\" aria-label=\"Tarea\"><label class=\"ds-segment\"><input type=\"radio\" name=\"ds-task\" checked /><span>Progreso</span></label><label class=\"ds-segment\"><input type=\"radio\" name=\"ds-task\" /><span>Primos</span></label><label class=\"ds-segment\"><input type=\"radio\" name=\"ds-task\" /><span>Cargas</span></label></div>",
-      "css": ".ds-selector{display:flex;min-height:56px;border-radius:30px;border:1px solid rgba(255,255,255,.95);background:linear-gradient(135deg,#F5FAFF,#DCEBFB);box-shadow:0 6px 12px rgba(28,66,110,.12)}.ds-segment{flex:1;display:flex;position:relative;align-items:stretch;min-width:0;font-family:sans-serif;font-size:14px;font-weight:500;line-height:20px;letter-spacing:.1px;color:#132A44}.ds-segment input{position:absolute;opacity:0;width:1px;height:1px}.ds-segment span{flex:1;display:flex;align-items:center;justify-content:center;padding:0 12px}.ds-segment:first-child span{border-radius:30px 0 0 30px}.ds-segment:last-child span{border-radius:0 30px 30px 0}.ds-segment input:checked+span{background:rgba(217,233,255,.8);color:#123D70}.ds-segment:hover{cursor:pointer}.ds-segment input:focus-visible+span{outline:auto}.ds-segment:active{cursor:pointer}"
+      "description": "Tres pestañas nativas Role.Tab; preview HTML representa estados exclusivos. El indicador móvil real usa spring(.85,500).",
+      "html": "<div class=\"ds-selector\" role=\"tablist\" aria-label=\"Tarea\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\">Progreso</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Primos</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Cargas</button></div>",
+      "css": ".ds-selector{display:flex;min-height:56px;border-radius:30px;border:1px solid rgba(255,255,255,.95);background:linear-gradient(135deg,#F5FAFF,#DCEBFB);box-shadow:0 6px 12px rgba(28,66,110,.12)}.ds-tab{position:relative;flex:1;min-width:0;min-height:56px;padding:12px 8px;border:0;border-radius:28px;background:transparent;color:#132A44;font:500 14px/20px sans-serif;letter-spacing:.1px}.ds-tab[aria-selected=true]{font-weight:700;color:#123D70}.ds-tab[aria-selected=true]:before{content:\"\";position:absolute;inset:4px;border:1px solid rgba(255,255,255,.55);border-radius:26px;background:linear-gradient(rgba(217,233,255,.95),rgba(217,233,255,.5));z-index:-1}.ds-tab{isolation:isolate}.ds-tab:hover{cursor:pointer}.ds-tab:focus-visible{outline:auto}.ds-tab:active{cursor:pointer}"
     },
     {
       "name": "Límite numérico",
@@ -692,27 +780,49 @@
       "description": "Una etiqueta, un control. En Compose la fila usa toggleable(Role.Switch); el Switch no posee una segunda acción.",
       "html": "<label class=\"ds-option\"><span>Simular error</span><input class=\"ds-switch\" type=\"checkbox\" role=\"switch\" /></label>",
       "css": ".ds-option{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;color:#132A44;font-family:sans-serif;font-size:16px;line-height:24px;letter-spacing:.5px}.ds-switch{appearance:none;flex:none;width:52px;height:32px;margin:0;border:2px solid #6C819A;border-radius:16px;background:#E8EFF8;position:relative}.ds-switch:before{content:\"\";position:absolute;width:16px;height:16px;top:6px;left:6px;background:#6C819A;border-radius:50%}.ds-switch:checked{background:#195DAA;border-color:#195DAA}.ds-switch:checked:before{width:24px;height:24px;top:2px;left:22px;background:#FFFFFF}.ds-option:hover,.ds-switch:hover:not(:disabled){cursor:pointer}.ds-switch:focus-visible{outline:auto}.ds-switch:active:not(:disabled){cursor:pointer}.ds-switch:disabled{opacity:.38}"
+    },
+    {
+      "name": "Dial de progreso",
+      "kind": "custom",
+      "refersTo": "progress-dial",
+      "description": "Instantánea de referencia al42%; el dial real usa100marcas, datos observados, tamaño adaptativo y reinicio por ejecución.",
+      "html": "<div class=\"ds-dial\" role=\"progressbar\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"42\"><svg viewBox=\"0 0 180 180\" aria-hidden=\"true\"><circle class=\"ds-dial-ticks\" cx=\"90\" cy=\"90\" r=\"79\"/><circle class=\"ds-dial-track\" cx=\"90\" cy=\"90\" r=\"63\"/><circle class=\"ds-dial-value\" cx=\"90\" cy=\"90\" r=\"63\"/></svg><span>42 %</span></div>",
+      "css": ".ds-dial{position:relative;width:180px;height:180px;color:#195DAA;font:400 45px/52px sans-serif}.ds-dial svg{width:100%;height:100%;transform:rotate(-90deg)}.ds-dial circle{fill:none}.ds-dial-ticks{stroke:#D3DEEB;stroke-width:5;stroke-dasharray:2 2.964}.ds-dial-track{stroke:#D3DEEB;stroke-width:6}.ds-dial-value{stroke:#195DAA;stroke-width:6;stroke-linecap:round;stroke-dasharray:166.25 395.84}.ds-dial span{position:absolute;inset:0;display:grid;place-items:center}"
+    },
+    {
+      "name": "Pista de corrutina",
+      "kind": "custom",
+      "refersTo": "process-track",
+      "description": "Instantánea60%de una pista trabajando. Producción observaFlow, publica fase/rango y reinicia identidad de ejecución/intento.",
+      "html": "<div class=\"ds-process\"><div class=\"ds-process-head\"><strong>Corrutina Perfil</strong><span>En curso</span></div><svg class=\"ds-process-track\" viewBox=\"0 0 300 28\" role=\"img\" aria-label=\"Corrutina Perfil, en curso,60por ciento\"><path d=\"M12 14H288\" stroke=\"#D3DEEB\"/><path d=\"M12 14H177.6\" stroke=\"#195DAA\"/><circle cx=\"177.6\" cy=\"14\" r=\"11\" fill=\"#195DAA\" opacity=\".15\"/><circle cx=\"177.6\" cy=\"14\" r=\"7\" fill=\"#195DAA\"/></svg><small>60 % · corrutina activa</small></div>",
+      "css": ".ds-process{padding:8px 0;font-family:sans-serif;color:#132A44}.ds-process-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.ds-process-head strong{font-size:16px;font-weight:600;line-height:24px;letter-spacing:.2px}.ds-process-head span{color:#195DAA;font-size:14px;font-weight:500;line-height:20px}.ds-process-track{display:block;width:100%;height:28px;margin:6px 0}.ds-process-track path{fill:none;stroke-width:4;stroke-linecap:round}.ds-process small{display:block;color:#475F7A;font-size:12px;line-height:16px;letter-spacing:.4px}"
     }
   ],
   "narrative": {
     "northStar": "Azul y vidrio claro",
-    "overview": "Azul profundo y celeste sobre blanco frío. La lectura permanece mate y nítida; el vidrio da presencia a la selección y a los controles. El tema oscuro conserva las mismas funciones de color y responde a la preferencia del sistema.\n\nEs un sistema Android nativo con Compose Material3. La tipografía y los controles mantienen sus convenciones de plataforma; el material propio se limita a superficies procedurales, bordes luminosos y respuesta de presión. No existe una composición raster que actúe como autoridad.",
+    "overview": "Azul profundo y celeste sobre blanco frío. La lectura permanece mate y nítida; el vidrio da presencia a selección y controles. Una ilustración de cintas azules compartida con las lentes refuerza el área de trabajo. El tema oscuro reduce su intensidad y responde a la preferencia del sistema.\n\nEs un sistema Android nativo con Compose Material3. La tipografía conserva sus convenciones de plataforma, mientras el material propio usa bordes luminosos, presión elástica y selección móvil. Dial y pistas animadas representan progreso observado: la ilustración es expresiva, los datos y las fases son reales.",
     "keyCharacteristics": [
-      "Lectura oscura sobre superficies claras en el tema diurno.",
-      "Vidrio localizado en selección y controles; texto sin distorsión.",
-      "Jerarquía y estados nativos Material3.",
-      "Azul para acción y medición; rojo semántico para error."
+      "Lectura separada del área ilustrada y texto sin distorsión.",
+      "Vidrio azul para acción principal y vidrio claro para selección y prueba de respuesta.",
+      "Jerarquía Material3 y controles con semántica nativa.",
+      "Movimiento breve ligado a selección, presión y avances observados.",
+      "Cian para finalización, rojo semántico para error y tinta secundaria para espera o cancelación."
     ],
     "rules": [
       {
         "name": "The Shared Background Rule",
-        "body": "La lente y el fondo evalúan el mismo campo procedural en coordenadas globales. No atribuir a la lente refracción de otras vistas ni del contenido.",
+        "body": "La lente y el fondo evalúan el mismo campo procedural y la misma textura en coordenadas globales. No atribuir a la lente refracción de otras vistas ni del contenido.",
         "section": "elevation"
       },
       {
         "name": "The Native Type Rule",
         "body": "Reutilizar los roles de MaterialTheme.typography y sus pesos explícitos; conservar el escalado de texto del sistema.",
         "section": "typography"
+      },
+      {
+        "name": "The Observed Process Rule",
+        "body": "Los marcadores representan progreso y fases del Repository. Interpolar solo dentro de una ejecución o intento; reiniciar inmediatamente al cambiar su identidad.",
+        "section": "elevation"
       },
       {
         "name": "The Honest Trace Rule",
@@ -722,14 +832,17 @@
     ],
     "dos": [
       "Do conservar las parejas de color del tema activo y el escalado de texto del sistema.",
-      "Do usar el vidrio en controles y mantener el contenido textual nítido.",
-      "Do conservar las áreas mínimas y el ajuste de acciones con FlowRow.",
+      "Do mantener el texto nítido y usar la ilustración como fondo, sin cifras ni controles incrustados.",
+      "Do ligar cada pista y cifra a estados observados, con semántica de progreso y fase.",
+      "Do reiniciar dial y marcadores al cambiar ejecución o intento, antes de interpolar nuevos valores.",
+      "Do conservar visibles los controles del hilo principal y el ajuste de acciones con FlowRow.",
       "Do asociar cada interruptor a su etiqueta en un único nodo accionable con Role.Switch.",
       "Do respetar la reducción de animaciones del sistema y medir el comportamiento real antes de afirmar fluidez."
     ],
     "donts": [
       "Don't sustituir Typography() por una fuente de exhibición o un tamaño fijo en píxeles.",
       "Don't describir la lente como un desenfoque o una captura de vistas subyacentes.",
+      "Don't prolongar una animación desde el avance del intento anterior al iniciar otro.",
       "Don't registrar las esperas de tareas, timeout o reintentos como duraciones de animación.",
       "Don't convertir los ejemplos HTML del panel en autoridad sobre la implementación Compose.",
       "Don't afirmar validación del fallback en API24–32 ni de teléfono físico: la evidencia disponible corresponde al emulador API37."

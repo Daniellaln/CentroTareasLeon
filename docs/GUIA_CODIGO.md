@@ -30,3 +30,23 @@ En Git → Log selecciona main o mejora-ia, elige el commit y abre Show Diff. El
 En fase2, los commits1–6 son las seis mejoras en el orden de la tabla de la guía. El7 incorpora el medidor propio y sus pruebas. El8 cambia diseño, navegación, tema y recursos. El cierre unifica los nombres y acciones de los interruptores para accesibilidad y añade capturas, pruebas y documentación.
 
 El bloqueo del hilo principal está solo en9de0c8c, en main. El avance siguiente lo sustituye. El código final evita Thread.sleep, runBlocking y GlobalScope en producción.
+
+## Procesos animados: avance10
+
+**Estados / fases:** model/Procesos.kt. Esperando, Trabajando, Listo, Error y Cancelado. AvanceCarga lleva progreso, resultado y nombre del hilo emisor.
+
+**Avance / simulación:** data/TareasRepositoryLocal.kt, progresoPerfil, progresoPedidos y simularCarga. Los pasos de50ms suman las esperas ficticias2/3s y emiten desde Default. No son llamadas a Internet.
+
+**Orden / concurrencia:** viewmodel/TareasViewModel.kt, cargar y observarProceso. En secuencial espera el primer resultado antes de iniciar el segundo; en paralelo contiene dos async dentro de coroutineScope. Una corrutina no equivale a un hilo exclusivo. perfilVisible y pedidosVisible describen lo que está ocurriendo.
+
+**Primos / candidato actual:** model/AvancePrimos.kt y progresoPrimos en el Repository. evaluado es el último número examinado, no una cifra inventada a partir del porcentaje. El ViewModel expone avancePrimos y hastaPrimos.
+
+**Recorridos / animación de trabajo:** ui/ProcesosAnimados.kt, ProcesoAnimado. El marcador interpola el avance recibido y cambia con la fase. ui/AcabadoTareas.kt contiene dial y selector. PantallaTareas usa AnimatedContent para las transiciones; cambiar pestaña no reinicia los Jobs.
+
+**Imagen / material:** app/src/main/res/drawable-nodpi/cintas_vidrio.png. El tema carga una copia compartida; ui/CristalTareas.kt la incorpora al fondo y a las lentes con BitmapShader. El prompt está en docs/recursos/cintas_vidrio.prompt.txt. Hilo principal y Tócame quedan fijos en teléfono, para tocar mientras avanzan las tareas.
+
+## Recorrido corto para exponer
+
+“Pulso Una por una. Primero avanza Perfil y Pedidos espera. Ahora pulso A la vez: los dos avanzan y el tiempo total baja. Mientras trabajan, puedo tocar este botón del hilo principal. El cálculo de primos se hace en Default y aquí se ve su avance. Si cancelo, se detiene el recorrido. Los resultados y los estados salen del Repository y los observa el ViewModel.”
+
+Para mostrar el caso que bloquea, usa el commit histórico9de0c8c de main, carpeta fase1/commit_03_bloqueo/proyecto. La guía exige eliminarlo del código final: no se añadió un botón bloqueante a esta versión.

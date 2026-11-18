@@ -1,24 +1,28 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<testsuites tests="14" failures="0" errors="0" skipped="0" time="48.577" timestamp="2026-11-18T15:18:57" hostname="localhost">
-  <testsuite name="com.leon.centrotareas.CentroTareasTest" tests="14" failures="0" errors="0" skipped="0" time="47.497" timestamp="2026-11-18T15:18:57" hostname="localhost">
+<testsuites tests="18" failures="0" errors="0" skipped="0" time="67.522" timestamp="2026-11-18T16:31:56" hostname="localhost">
+  <testsuite name="com.leon.centrotareas.CentroTareasTest" tests="18" failures="0" errors="0" skipped="0" time="64.231" timestamp="2026-11-18T16:31:56" hostname="localhost">
     <properties>
       <property name="device" value="Pixel_8_Pro_2(AVD) - 17" />
       <property name="flavor" value="" />
       <property name="project" value=":app" />
     </properties>
-    <testcase name="progresoNoBloqueaToquesYSePuedeCancelarYReiniciar" classname="com.leon.centrotareas.CentroTareasTest" time="5.77" />
-    <testcase name="tareaCompletaLlegaACien" classname="com.leon.centrotareas.CentroTareasTest" time="6.222" />
-    <testcase name="opcionesSonControlesUnicosConNombreEstadoYAccion" classname="com.leon.centrotareas.CentroTareasTest" time="2.178" />
-    <testcase name="reintentosSeAcotanYCancelarNoSeConfundeConError" classname="com.leon.centrotareas.CentroTareasTest" time="5.389" />
-    <testcase name="botonesInicialesTienenEstadosCorrectos" classname="com.leon.centrotareas.CentroTareasTest" time="1.287" />
-    <testcase name="comparacionSoloAgregaCargasExitosas" classname="com.leon.centrotareas.CentroTareasTest" time="6.449" />
-    <testcase name="textoInvalidoNoLanzaCalculo" classname="com.leon.centrotareas.CentroTareasTest" time="1.74" />
-    <testcase name="primosDevuelven168YCancelacionFunciona" classname="com.leon.centrotareas.CentroTareasTest" time="1.331" />
-    <testcase name="cancelarCargaNoSeConvierteEnError" classname="com.leon.centrotareas.CentroTareasTest" time="1.566" />
-    <testcase name="limiteDeDosSegundosPuedeDesactivarseParaRecuperarLaCarga" classname="com.leon.centrotareas.CentroTareasTest" time="6.629" />
-    <testcase name="cargasEnParaleloSuperponenSusEsperas" classname="com.leon.centrotareas.CentroTareasTest" time="1.845" />
-    <testcase name="medidorNoCuentaElTiempoEnSegundoPlano" classname="com.leon.centrotareas.CentroTareasTest" time="2.963" />
-    <testcase name="datastoreRealRecuperaSoloLosCincoUltimosResultados" classname="com.leon.centrotareas.CentroTareasTest" time="2.026" />
-    <testcase name="errorYReintentoConservanLaAppOperativa" classname="com.leon.centrotareas.CentroTareasTest" time="2.102" />
+    <testcase name="progresoNoBloqueaToquesYSePuedeCancelarYReiniciar" classname="com.leon.centrotareas.CentroTareasTest" time="5.9" />
+    <testcase name="tareaCompletaLlegaACien" classname="com.leon.centrotareas.CentroTareasTest" time="6.324" />
+    <testcase name="opcionesSonControlesUnicosConNombreEstadoYAccion" classname="com.leon.centrotareas.CentroTareasTest" time="3.123" />
+    <testcase name="reintentosSeAcotanYCancelarNoSeConfundeConError" classname="com.leon.centrotareas.CentroTareasTest" time="5.783" />
+    <testcase name="botonesInicialesTienenEstadosCorrectos" classname="com.leon.centrotareas.CentroTareasTest" time="2.278" />
+    <testcase name="comparacionSoloAgregaCargasExitosas" classname="com.leon.centrotareas.CentroTareasTest" time="7.749" />
+    <testcase name="procesosSecuencialesEsperanElResultadoAnterior" classname="com.leon.centrotareas.CentroTareasTest" time="2.304" />
+    <testcase name="textoInvalidoNoLanzaCalculo" classname="com.leon.centrotareas.CentroTareasTest" time="2.763" />
+    <testcase name="primosDevuelven168YCancelacionFunciona" classname="com.leon.centrotareas.CentroTareasTest" time="2.151" />
+    <testcase name="cancelarCargaNoSeConvierteEnError" classname="com.leon.centrotareas.CentroTareasTest" time="3.1" />
+    <testcase name="procesosParalelosSeSuperponenYAmbosSeCancelan" classname="com.leon.centrotareas.CentroTareasTest" time="1.687" />
+    <testcase name="limiteDeDosSegundosPuedeDesactivarseParaRecuperarLaCarga" classname="com.leon.centrotareas.CentroTareasTest" time="6.829" />
+    <testcase name="cambiarDeTareaNoReiniciaNiCancelaElTrabajoActivo" classname="com.leon.centrotareas.CentroTareasTest" time="3.609" />
+    <testcase name="cargasEnParaleloSuperponenSusEsperas" classname="com.leon.centrotareas.CentroTareasTest" time="1.76" />
+    <testcase name="reintentoNoHeredaElMarcadorAnteriorYMantieneAnimacion" classname="com.leon.centrotareas.CentroTareasTest" time="2.556" />
+    <testcase name="medidorNoCuentaElTiempoEnSegundoPlano" classname="com.leon.centrotareas.CentroTareasTest" time="1.838" />
+    <testcase name="datastoreRealRecuperaSoloLosCincoUltimosResultados" classname="com.leon.centrotareas.CentroTareasTest" time="1.94" />
+    <testcase name="errorYReintentoConservanLaAppOperativa" classname="com.leon.centrotareas.CentroTareasTest" time="2.537" />
   </testsuite>
 </testsuites>
