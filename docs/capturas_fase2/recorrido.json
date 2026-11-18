@@ -1,0 +1,28 @@
+{
+  "app": "com.leon.centrotareas",
+  "emulador": "Pixel_8_Pro_2 / API37",
+  "primos_1000": 168,
+  "primos_5000000": 348513,
+  "historial_reabierto": true,
+  "capturas": [
+    "01_progreso_inicio.png",
+    "02_historial_vacio.png",
+    "03_progreso_activo.png",
+    "04_cancelada.png",
+    "05_progreso_terminado.png",
+    "06_primos_referencia.png",
+    "07_primos_progreso.png",
+    "08_primos_resultado.png",
+    "09_carga_secuencial.png",
+    "10_carga_paralela.png",
+    "11_comparacion.png",
+    "12_tiempo_maximo.png",
+    "13_reintento_automatico.png",
+    "14_recuperacion.png",
+    "15_historial.png",
+    "16_historial_reapertura.png",
+    "17_tema_oscuro.png",
+    "18_texto_grande.png",
+    "19_horizontal.png"
+  ]
+}

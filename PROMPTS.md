@@ -89,7 +89,7 @@ Diferencia frente a la base: se incorpora historial persistente. Reflexión: cad
 ```text
 Compórtate como un experto en Kotlin, corrutinas y arquitectura MVVM para Android. Ayúdame a incorporar comparación de tiempos a CentroTareasLeon, paquete com.leon.centrotareas, partiendo del avance anterior en mejora-ia. Conserva main, los modelos de estado, el resto de funciones y las tres tareas de la guía. El proyecto usa Compose Material3 y JDK21; no necesita Firebase, permisos ni Internet para simular cargas.
 
-Añade MedicionCarga(numero,modo,milisegundos) y un StateFlow<List<MedicionCarga>> al ViewModel. Acumula únicamente las cargas exitosas de la sesión, hasta20 mediciones, con número consecutivo. El tiempo medido comprende la operación completa, incluidas esperas de reintento si se activaron. Presenta filas de ejecución, modo y milisegundos, y resúmenes separados de Una por una y A la vez cuando existan ambas. No pongas5s/3s fijos como si fueran mediciones. Conserva las cargas simuladas de2 y3s y documenta que la comparación depende del equipo y configuración. Comprueba que alternar modos agrega filas y que cancelar/fallar no agrega una fila exitosa.
+Añade MedicionCarga(numero,modo,milisegundos) y un StateFlow<List<MedicionCarga>> al ViewModel. Acumula únicamente las cargas exitosas de la sesión, hasta20 mediciones, con número consecutivo. El tiempo medido comprende la operación completa, incluidas esperas de reintento si se activaron. Presenta filas de ejecución, modo y milisegundos, mostrando Una por una y A la vez cuando existan ambas. No pongas5s/3s fijos como si fueran mediciones. Conserva las cargas simuladas de2 y3s y documenta que la comparación depende del equipo y configuración. Comprueba que alternar modos agrega filas y que cancelar/fallar no agrega una fila exitosa.
 
 La UI solo observa el ViewModel y comunica acciones; no consulta repositorios ni lanza trabajos. El ViewModel depende de interfaces sin Context. Conserva la cancelación estructurada y evita GlobalScope, runBlocking y Thread.sleep en código de producción. Compila con gradlew.bat assembleDebug testDebugUnitTest (o ./gradlew en Mac) y comprueba este cambio antes de seguir al próximo prompt. Puedes consultar el código de este avance en el historial Git de la rama para reproducir firmas y etiquetas exactas.
 ```
@@ -131,3 +131,19 @@ En Comprueba la respuesta muestra Tócame, mayor pausa y una curva de muestras r
 | 8. Diseño | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Una tarea visible, historial aparte, vidrio procedural y controles nativos accesibles. | Reducir opciones simultáneas y mantener legible la demostración. |
 
 Diferencia frente a la base: cambia la organización y el material visual. Comprobar: navegación, contraste, texto grande y reinicio de la gráfica durante el dibujo.
+
+## 9. Verificación y documentación
+
+```text
+Compórtate como un experto en pruebas Android y documentación para estudiantes. Ayúdame a cerrar la fase2 de CentroTareasLeon sin modificar main ni sustituir mediciones por valores fijos. Trabaja sobre los ocho avances anteriores en mejora-ia, com.leon.centrotareas. Conserva las seis mejoras y el medidor propio. Comprueba assembleDebug, testDebugUnitTest, lintDebug y connectedDebugAndroidTest con JDK21 y un emulador. Respeta la estructura MVVM: la vista muestra y envía eventos, el ViewModel coordina y los repositorios hacen el trabajo.
+
+Prueba progreso, toques, cancelación y reinicio; primos1000→168 y5000000→348513; cargas una por una y a la vez; tiempo máximo2s, error, tres reintentos adicionales y cancelación durante la espera. El historial debe conservar exactamente los cinco resultados más recientes tras cerrar y reabrir. Compara solo tiempos de cargas exitosas. Revisa que los callbacks de Choreographer se retiren al pausar y no incluyan tiempo en segundo plano. Comprueba claro, oscuro, texto al130%, teclado y horizontal sin recortes de acciones. En Opcion convierte cada fila en Row.toggleable(value=valor, enabled=enabled, role=Role.Switch, onValueChange=cambiar), con Switch(onCheckedChange=null). La etiqueta, estado y acción deben formar un único nodo accesible. Añade una prueba de los tres nombres, conmutación y deshabilitado durante la carga. Distingue lo probado en emulador de lo revisado en código: no inventes una prueba de teléfono físico ni de otra versión de Android.
+
+Guarda las capturas directas en docs/capturas_fase2 y los resultados JUnit y lint en docs/pruebas_fase2. Deja README con comparación fase1/fase2 cara a cara y acceso a la galería; docs/GUIA_CODIGO.md con carpeta, archivo y función de cada mejora; docs/VERIFICACION.md con resultados y límites reales. Mantén esta única guía PROMPTS.md ordenada. Registra las respuestas reales del agente cuando se ejecute cada bloque; los bloques existentes son instrucciones de reproducción y no justifican inventar respuestas. Verifica que todos los recursos SVG y VectorDrawable y la referencia del vidrio estén en la repo, sin rutas a carpetas privadas ni claves. Documenta tokens y comportamiento en DESIGN.md. Cada commit tiene que ser concreto y probado; no cambies fechas ni reescribas los avances publicados.
+```
+
+| Prompt | Qué respondió Gemini | Qué adapté | Por qué |
+|---|---|---|---|
+| 9. Cierre | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Evidencia de8 pruebas unitarias,14 Android, capturas reales y mapa de código. | Facilitar la revisión y la reproducción sin depender de carpetas privadas. |
+
+Diferencia frente a la base: el informe del repositorio incluye todas las mejoras, sus pruebas y el diseño final. Comprobar: rutas válidas y mensajes coherentes con cada avance.

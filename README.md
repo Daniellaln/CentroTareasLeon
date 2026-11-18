@@ -1,87 +1,63 @@
 # CentroTareas
 
-Daniella Leon · Laboratorio 14 · Fase 1
+Daniella Leon · Laboratorio 14
 
-Una app para comprobar qué pasa cuando una tarea bloquea la pantalla y cómo resolverlo con corrutinas. Usa Kotlin, Jetpack Compose, Material 3 y MVVM con Repository.
+Demostración de tareas, corrutinas y respuesta de la pantalla. Kotlin, Compose Material3 y MVVM con Repository. **main** conserva la fase1; **mejora-ia** contiene las seis mejoras y el diseño final.
 
-Repositorio público: https://github.com/Daniellaln/CentroTareasLeon
+[Repositorio público](https://github.com/Daniellaln/CentroTareasLeon) · [Prompts](PROMPTS.md) · [Dónde está el código](docs/GUIA_CODIGO.md) · [Pruebas](docs/VERIFICACION.md)
 
-## Abrir y probar
+## Antes y después
 
-Abre el proyecto en Android Studio con JDK21 y SDK37. Paquete e identificador: `com.leon.centrotareas`. Android7 o superior. No necesita permisos, Firebase ni conexión para funcionar; solo la sincronización inicial descarga dependencias.
+Fase1 a la izquierda y fase2 a la derecha. Ambas son capturas de la app ejecutada.
 
-Pulsa **Iniciar** y toca **Tócame** mientras avanza. Cancela y vuelve a iniciar. Prueba primos con1000 (resultado168). En **Dos cargas**, compara **Una por una** con **A la vez**; activa el error y desactívalo antes de **Reintentar**.
+<img src="docs/capturas/04_progreso.png" width="240" alt="Fase1 con sus tareas en una pantalla"> <img src="docs/capturas_fase2/03_progreso_activo.png" width="240" alt="Fase2 con una tarea visible y medidor de respuesta">
 
-Los datos son ficticios: Ana Torres, pedidos101/102/103, esperas simuladas de2s y3s. Se añadió cancelar también las cargas para que todo trabajo largo pueda detenerse.
+## Abrir
 
-La guía no vino acompañada de un proyecto ejecutable: la base se reconstruyó desde sus contratos y capturas. Esta implementación se hizo con asistencia de Codex; no se presenta como trabajo realizado sin IA ni como una sesión ejecutada en Gemini.
+Abre la raíz del proyecto en Android Studio. Usa **JDK21**, SDK37 y Android7 o superior. El paquete es **com.leon.centrotareas**. No requiere claves, Firebase, permisos ni Internet para las tareas; la primera sincronización sí descarga las dependencias.
 
-## Código
+## Probar
 
-```text
-com.leon.centrotareas/
-  MainActivity.kt
-  model/Estados.kt
-  data/TareasRepository.kt
-  data/TareasRepositoryLocal.kt
-  viewmodel/TareasViewModel.kt
-  viewmodel/TareasViewModelFactory.kt
-  ui/PantallaTareas.kt
-  ui/theme/Theme.kt
-```
+En **Progreso**, pulsa Iniciar y luego Tócame. Cancela y vuelve a empezar. El progreso viene del Repository mediante Flow y el hilo principal sigue atendiendo la pantalla.
+
+En **Primos**, prueba1000: debe dar168. El valor inicial de cinco millones permite observar el progreso y cancelar un cálculo real, sin añadir esperas artificiales.
+
+En **Cargas**, compara Una por una con A la vez. Las esperas simuladas son2 y3 segundos; la tabla guarda hasta20 mediciones de la sesión. Los datos de Ana Torres y sus tres pedidos son ficticios.
+
+Abre **Pruebas de carga** para activar error, límite de2s o reintentos. Con el límite activo aparece Tardó demasiado; apágalo para completar las cargas normales. Hay tres reintentos automáticos adicionales, con esperas de0.5,1 y2s. Cancelar sigue funcionando durante esas esperas.
+
+El botón de historial abre los **cinco últimos resultados de primos y cargas**, guardados con DataStore. Siguen ahí al cerrar y abrir la app. La tabla de comparación pertenece a la sesión; el historial sí es persistente.
+
+## Seis mejoras y aporte propio
+
+Se implementaron todas las opciones de fase2: progreso desde Repository, tiempo máximo, reintento automático, progreso de primos, historial DataStore y comparación de tiempos. Cada mejora tiene su propio commit y prompt de reproducción.
+
+El aporte propio es el **medidor de respuesta**: observa intervalos reales entre fotogramas mientras hay trabajo, muestra la mayor pausa y una traza. Tócame permite comprobar además la respuesta al tocar. El medidor no es una prueba de rendimiento de un teléfono físico ni mide directamente la latencia del toque.
+
+<img src="docs/capturas_fase2/08_primos_resultado.png" width="240" alt="Primos calculados y curva de respuesta real"> <img src="docs/capturas_fase2/11_comparacion.png" width="240" alt="Mediciones secuenciales y paralelas">
+
+## Diseño
+
+Azul y vidrio claro, una tarea visible e historial separado. Tema oscuro del sistema, texto grande y dos columnas en horizontal. Los iconos SVG son propios y la app usa sus VectorDrawable en drawable. El vidrio se dibuja con AGSL en Android13+ y refracta el fondo procedural compartido; en versiones anteriores usa un degradado. No refracta el texto ni las otras vistas. No se necesitaron fotografías para esta interfaz.
+
+<img src="docs/capturas_fase2/16_historial_reapertura.png" width="240" alt="Historial conservado después de reabrir"> <img src="docs/capturas_fase2/17_tema_oscuro.png" width="240" alt="Tema oscuro">
+
+Las19 capturas están en [la galería completa](docs/GALERIA.md). Las imágenes son del emulador, sin sustituir la interfaz por un montaje.
+
+## Arquitectura y comprobación
+
+La UI observa StateFlow y envía acciones. El ViewModel coordina los trabajos; depende de interfaces y no recibe Context. El Repository realiza el cálculo y simula las cargas. DataStore tiene su propio adaptador. La observación de fotogramas pertenece al ciclo de vida de la vista y solo comunica timestamps.
 
 ```mermaid
 flowchart LR
-  UI[PantallaTareas] -->|eventos| VM[TareasViewModel]
+  UI[Compose] -->|acciones| VM[ViewModel]
   VM -->|StateFlow| UI
-  VM --> R[TareasRepository interfaz]
-  R --> L[TareasRepositoryLocal]
+  VM --> R[Interfaz Repository]
+  R --> L[Implementación local]
+  VM --> H[Interfaz Historial]
+  H --> D[DataStore]
 ```
 
-La UI observa estado y comunica eventos. El ViewModel coordina Jobs, progreso, estados y tiempos. El Repository calcula primos y simula cargas. El ViewModel no recibe Context ni conoce Composables.
+**8 pruebas unitarias y14 instrumentadas**, sin fallos. Compilación y lint sin errores. Se comprobó persistencia real, cancelación, error y recuperación, tiempos, temas, letra1.3 y horizontal. Detalles y límites en [Verificación](docs/VERIFICACION.md).
 
-## Observación del Paso 1
-
-Durante la espera de cuatro segundos la pantalla no responde y el contador no se actualiza. Trabajando... no llega a dibujarse porque el hilo principal está ocupado. Un bloqueo suficientemente largo puede provocar un aviso ANR; el momento exacto depende de Android.
-
-La versión bloqueante está en el commit `9de0c8c` (carpeta commit03). El siguiente la reemplaza; el código final no mantiene ese bloqueo. El registro HILO muestra main antes/después y DefaultDispatcher-worker dentro.
-
-## Capturas
-
-Bloqueo y solución con corrutina, tomados de sus respectivos avances:
-
-<img src="docs/capturas/02_bloqueo.png" width="240" alt="Demostración de la espera bloqueante"> <img src="docs/capturas/03_corrutina.png" width="240" alt="Los toques responden durante la corrutina">
-
-Progreso y cancelación:
-
-<img src="docs/capturas/04_progreso.png" width="240" alt="Tarea avanzando"> <img src="docs/capturas/05_cancelada.png" width="240" alt="Tarea cancelada sin reiniciar progreso">
-
-Primos:
-
-<img src="docs/capturas/07_primos.png" width="240" alt="Resultado del cálculo de primos">
-
-Una por una frente a la vez:
-
-<img src="docs/capturas/08_secuencial.png" width="240" alt="Carga secuencial"> <img src="docs/capturas/09_paralelo.png" width="240" alt="Carga paralela">
-
-Error y reintento:
-
-<img src="docs/capturas/10_error.png" width="240" alt="Error simulado"> <img src="docs/capturas/11_reintento.png" width="240" alt="Reintento correcto">
-
-## Para pensar
-
-**¿Por qué no se veía Trabajando...?** El estado cambiaba, pero Android no podía dibujarlo mientras el hilo principal estaba ocupado.
-
-**¿Thread.sleep y delay?** El primero bloquea el hilo. delay suspende la corrutina y deja al hilo atender otro trabajo.
-
-**¿Default para primos e IO para red?** Default se usa para cálculo con CPU; IO para operaciones de entrada/salida bloqueantes. Aquí las cargas usan delay y no hacen red real.
-
-**¿Qué ocurre al cerrar o girar?** viewModelScope cancela los trabajos cuando se destruye definitivamente el ViewModel. En un giro normal se conserva y el trabajo continúa. Ir al escritorio no equivale a destruir la pantalla.
-
-**¿Por qué async tarda3s y qué pasa si falla una carga?** Las esperas se superponen: manda la más larga. coroutineScope cancela la tarea hermana si una falla; el ViewModel muestra el error y permite reintentar.
-
-## Verificación
-
-5 pruebas unitarias y8 instrumentadas sin fallos. Compilación debug y lint sin errores. Evidencias en [docs/VERIFICACION.md](docs/VERIFICACION.md).
-
-Se respetan los nueve commits de la guía, más el cambio de paquete solicitado por Daniella y la calibración del cálculo inicial a cinco millones. Con500000 se midieron332ms, demasiado poco para observar el trabajo. Se ajustó el número, no la duración artificialmente; los valores de referencia de la guía siguen comprobados. No se alteran fechas ni se reescribe el historial. La rama mejora-ia parte del cierre de main; sus mejoras se desarrollarán en fase2.
+La fase1 reconstruye el código de la guía y conserva el bloqueo deliberado solo en su commit histórico9de0c8c. El código final lo elimina. La asistencia utilizada fue Codex. PROMPTS.md contiene instrucciones para reproducir el trabajo en Gemini y deja pendiente registrar sus respuestas cuando Daniella las ejecute; no se inventa una sesión de Gemini.

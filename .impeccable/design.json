@@ -1,0 +1,738 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-18T15:23:09.901398+00:00",
+  "title": "Design System: CentroTareas",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Azul de acción",
+        "tonalRamp": [
+          "oklch(15% 0.13980 254.94)",
+          "oklch(26% 0.13980 254.94)",
+          "oklch(38% 0.13980 254.94)",
+          "oklch(49% 0.13980 254.94)",
+          "oklch(61% 0.13980 254.94)",
+          "oklch(72% 0.13980 254.94)",
+          "oklch(84% 0.13980 254.94)",
+          "oklch(95% 0.13980 254.94)"
+        ]
+      },
+      "on-primary": {
+        "role": "primary",
+        "displayName": "Tinta sobre acción",
+        "tonalRamp": [
+          "oklch(15% 0.00000 0.00)",
+          "oklch(26% 0.00000 0.00)",
+          "oklch(38% 0.00000 0.00)",
+          "oklch(49% 0.00000 0.00)",
+          "oklch(61% 0.00000 0.00)",
+          "oklch(72% 0.00000 0.00)",
+          "oklch(84% 0.00000 0.00)",
+          "oklch(95% 0.00000 0.00)"
+        ]
+      },
+      "primary-container": {
+        "role": "primary",
+        "displayName": "Azul de selección",
+        "tonalRamp": [
+          "oklch(15% 0.03452 256.34)",
+          "oklch(26% 0.03452 256.34)",
+          "oklch(38% 0.03452 256.34)",
+          "oklch(49% 0.03452 256.34)",
+          "oklch(61% 0.03452 256.34)",
+          "oklch(72% 0.03452 256.34)",
+          "oklch(84% 0.03452 256.34)",
+          "oklch(95% 0.03452 256.34)"
+        ]
+      },
+      "on-primary-container": {
+        "role": "primary",
+        "displayName": "Tinta de selección",
+        "tonalRamp": [
+          "oklch(15% 0.09966 255.17)",
+          "oklch(26% 0.09966 255.17)",
+          "oklch(38% 0.09966 255.17)",
+          "oklch(49% 0.09966 255.17)",
+          "oklch(61% 0.09966 255.17)",
+          "oklch(72% 0.09966 255.17)",
+          "oklch(84% 0.09966 255.17)",
+          "oklch(95% 0.09966 255.17)"
+        ]
+      },
+      "secondary": {
+        "role": "secondary",
+        "displayName": "Cian de apoyo",
+        "tonalRamp": [
+          "oklch(15% 0.08867 219.17)",
+          "oklch(26% 0.08867 219.17)",
+          "oklch(38% 0.08867 219.17)",
+          "oklch(49% 0.08867 219.17)",
+          "oklch(61% 0.08867 219.17)",
+          "oklch(72% 0.08867 219.17)",
+          "oklch(84% 0.08867 219.17)",
+          "oklch(95% 0.08867 219.17)"
+        ]
+      },
+      "secondary-container": {
+        "role": "secondary",
+        "displayName": "Cian de contenedor",
+        "tonalRamp": [
+          "oklch(15% 0.02814 210.53)",
+          "oklch(26% 0.02814 210.53)",
+          "oklch(38% 0.02814 210.53)",
+          "oklch(49% 0.02814 210.53)",
+          "oklch(61% 0.02814 210.53)",
+          "oklch(72% 0.02814 210.53)",
+          "oklch(84% 0.02814 210.53)",
+          "oklch(95% 0.02814 210.53)"
+        ]
+      },
+      "on-secondary-container": {
+        "role": "secondary",
+        "displayName": "Tinta sobre cian",
+        "tonalRamp": [
+          "oklch(15% 0.06617 219.34)",
+          "oklch(26% 0.06617 219.34)",
+          "oklch(38% 0.06617 219.34)",
+          "oklch(49% 0.06617 219.34)",
+          "oklch(61% 0.06617 219.34)",
+          "oklch(72% 0.06617 219.34)",
+          "oklch(84% 0.06617 219.34)",
+          "oklch(95% 0.06617 219.34)"
+        ]
+      },
+      "background": {
+        "role": "neutral",
+        "displayName": "Blanco frío",
+        "tonalRamp": [
+          "oklch(15% 0.00907 258.34)",
+          "oklch(26% 0.00907 258.34)",
+          "oklch(38% 0.00907 258.34)",
+          "oklch(49% 0.00907 258.34)",
+          "oklch(61% 0.00907 258.34)",
+          "oklch(72% 0.00907 258.34)",
+          "oklch(84% 0.00907 258.34)",
+          "oklch(95% 0.00907 258.34)"
+        ]
+      },
+      "on-background": {
+        "role": "neutral",
+        "displayName": "Tinta de fondo",
+        "tonalRamp": [
+          "oklch(15% 0.05639 252.95)",
+          "oklch(26% 0.05639 252.95)",
+          "oklch(38% 0.05639 252.95)",
+          "oklch(49% 0.05639 252.95)",
+          "oklch(61% 0.05639 252.95)",
+          "oklch(72% 0.05639 252.95)",
+          "oklch(84% 0.05639 252.95)",
+          "oklch(95% 0.05639 252.95)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Superficie clara",
+        "tonalRamp": [
+          "oklch(15% 0.00285 264.54)",
+          "oklch(26% 0.00285 264.54)",
+          "oklch(38% 0.00285 264.54)",
+          "oklch(49% 0.00285 264.54)",
+          "oklch(61% 0.00285 264.54)",
+          "oklch(72% 0.00285 264.54)",
+          "oklch(84% 0.00285 264.54)",
+          "oklch(95% 0.00285 264.54)"
+        ]
+      },
+      "on-surface": {
+        "role": "neutral",
+        "displayName": "Tinta principal",
+        "tonalRamp": [
+          "oklch(15% 0.05639 252.95)",
+          "oklch(26% 0.05639 252.95)",
+          "oklch(38% 0.05639 252.95)",
+          "oklch(49% 0.05639 252.95)",
+          "oklch(61% 0.05639 252.95)",
+          "oklch(72% 0.05639 252.95)",
+          "oklch(84% 0.05639 252.95)",
+          "oklch(95% 0.05639 252.95)"
+        ]
+      },
+      "surface-variant": {
+        "role": "neutral",
+        "displayName": "Capa fría",
+        "tonalRamp": [
+          "oklch(15% 0.01426 254.61)",
+          "oklch(26% 0.01426 254.61)",
+          "oklch(38% 0.01426 254.61)",
+          "oklch(49% 0.01426 254.61)",
+          "oklch(61% 0.01426 254.61)",
+          "oklch(72% 0.01426 254.61)",
+          "oklch(84% 0.01426 254.61)",
+          "oklch(95% 0.01426 254.61)"
+        ]
+      },
+      "on-surface-variant": {
+        "role": "neutral",
+        "displayName": "Tinta secundaria",
+        "tonalRamp": [
+          "oklch(15% 0.05260 251.85)",
+          "oklch(26% 0.05260 251.85)",
+          "oklch(38% 0.05260 251.85)",
+          "oklch(49% 0.05260 251.85)",
+          "oklch(61% 0.05260 251.85)",
+          "oklch(72% 0.05260 251.85)",
+          "oklch(84% 0.05260 251.85)",
+          "oklch(95% 0.05260 251.85)"
+        ]
+      },
+      "outline": {
+        "role": "neutral",
+        "displayName": "Contorno",
+        "tonalRamp": [
+          "oklch(15% 0.04554 253.00)",
+          "oklch(26% 0.04554 253.00)",
+          "oklch(38% 0.04554 253.00)",
+          "oklch(49% 0.04554 253.00)",
+          "oklch(61% 0.04554 253.00)",
+          "oklch(72% 0.04554 253.00)",
+          "oklch(84% 0.04554 253.00)",
+          "oklch(95% 0.04554 253.00)"
+        ]
+      },
+      "outline-variant": {
+        "role": "neutral",
+        "displayName": "Divisor suave",
+        "tonalRamp": [
+          "oklch(15% 0.02144 252.51)",
+          "oklch(26% 0.02144 252.51)",
+          "oklch(38% 0.02144 252.51)",
+          "oklch(49% 0.02144 252.51)",
+          "oklch(61% 0.02144 252.51)",
+          "oklch(72% 0.02144 252.51)",
+          "oklch(84% 0.02144 252.51)",
+          "oklch(95% 0.02144 252.51)"
+        ]
+      },
+      "error": {
+        "role": "neutral",
+        "displayName": "Error",
+        "tonalRamp": [
+          "oklch(15% 0.17592 21.14)",
+          "oklch(26% 0.17592 21.14)",
+          "oklch(38% 0.17592 21.14)",
+          "oklch(49% 0.17592 21.14)",
+          "oklch(61% 0.17592 21.14)",
+          "oklch(72% 0.17592 21.14)",
+          "oklch(84% 0.17592 21.14)",
+          "oklch(95% 0.17592 21.14)"
+        ]
+      },
+      "error-container": {
+        "role": "neutral",
+        "displayName": "Contenedor de error",
+        "tonalRamp": [
+          "oklch(15% 0.03006 7.52)",
+          "oklch(26% 0.03006 7.52)",
+          "oklch(38% 0.03006 7.52)",
+          "oklch(49% 0.03006 7.52)",
+          "oklch(61% 0.03006 7.52)",
+          "oklch(72% 0.03006 7.52)",
+          "oklch(84% 0.03006 7.52)",
+          "oklch(95% 0.03006 7.52)"
+        ]
+      },
+      "on-error-container": {
+        "role": "neutral",
+        "displayName": "Tinta de error",
+        "tonalRamp": [
+          "oklch(15% 0.13546 17.74)",
+          "oklch(26% 0.13546 17.74)",
+          "oklch(38% 0.13546 17.74)",
+          "oklch(49% 0.13546 17.74)",
+          "oklch(61% 0.13546 17.74)",
+          "oklch(72% 0.13546 17.74)",
+          "oklch(84% 0.13546 17.74)",
+          "oklch(95% 0.13546 17.74)"
+        ]
+      },
+      "dark-primary": {
+        "role": "primary",
+        "displayName": "Azul de acción · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.07828 255.11)",
+          "oklch(26% 0.07828 255.11)",
+          "oklch(38% 0.07828 255.11)",
+          "oklch(49% 0.07828 255.11)",
+          "oklch(61% 0.07828 255.11)",
+          "oklch(72% 0.07828 255.11)",
+          "oklch(84% 0.07828 255.11)",
+          "oklch(95% 0.07828 255.11)"
+        ]
+      },
+      "dark-on-primary": {
+        "role": "primary",
+        "displayName": "Tinta sobre acción · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.09358 252.11)",
+          "oklch(26% 0.09358 252.11)",
+          "oklch(38% 0.09358 252.11)",
+          "oklch(49% 0.09358 252.11)",
+          "oklch(61% 0.09358 252.11)",
+          "oklch(72% 0.09358 252.11)",
+          "oklch(84% 0.09358 252.11)",
+          "oklch(95% 0.09358 252.11)"
+        ]
+      },
+      "dark-primary-container": {
+        "role": "primary",
+        "displayName": "Azul de selección · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.09785 251.85)",
+          "oklch(26% 0.09785 251.85)",
+          "oklch(38% 0.09785 251.85)",
+          "oklch(49% 0.09785 251.85)",
+          "oklch(61% 0.09785 251.85)",
+          "oklch(72% 0.09785 251.85)",
+          "oklch(84% 0.09785 251.85)",
+          "oklch(95% 0.09785 251.85)"
+        ]
+      },
+      "dark-on-primary-container": {
+        "role": "primary",
+        "displayName": "Tinta de selección · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.03452 256.34)",
+          "oklch(26% 0.03452 256.34)",
+          "oklch(38% 0.03452 256.34)",
+          "oklch(49% 0.03452 256.34)",
+          "oklch(61% 0.03452 256.34)",
+          "oklch(72% 0.03452 256.34)",
+          "oklch(84% 0.03452 256.34)",
+          "oklch(95% 0.03452 256.34)"
+        ]
+      },
+      "dark-secondary": {
+        "role": "secondary",
+        "displayName": "Cian de apoyo · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.07551 212.00)",
+          "oklch(26% 0.07551 212.00)",
+          "oklch(38% 0.07551 212.00)",
+          "oklch(49% 0.07551 212.00)",
+          "oklch(61% 0.07551 212.00)",
+          "oklch(72% 0.07551 212.00)",
+          "oklch(84% 0.07551 212.00)",
+          "oklch(95% 0.07551 212.00)"
+        ]
+      },
+      "dark-secondary-container": {
+        "role": "secondary",
+        "displayName": "Cian de contenedor · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.05997 218.82)",
+          "oklch(26% 0.05997 218.82)",
+          "oklch(38% 0.05997 218.82)",
+          "oklch(49% 0.05997 218.82)",
+          "oklch(61% 0.05997 218.82)",
+          "oklch(72% 0.05997 218.82)",
+          "oklch(84% 0.05997 218.82)",
+          "oklch(95% 0.05997 218.82)"
+        ]
+      },
+      "dark-on-secondary-container": {
+        "role": "secondary",
+        "displayName": "Tinta sobre cian · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.05379 210.92)",
+          "oklch(26% 0.05379 210.92)",
+          "oklch(38% 0.05379 210.92)",
+          "oklch(49% 0.05379 210.92)",
+          "oklch(61% 0.05379 210.92)",
+          "oklch(72% 0.05379 210.92)",
+          "oklch(84% 0.05379 210.92)",
+          "oklch(95% 0.05379 210.92)"
+        ]
+      },
+      "dark-background": {
+        "role": "neutral",
+        "displayName": "Blanco frío · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.03795 260.41)",
+          "oklch(26% 0.03795 260.41)",
+          "oklch(38% 0.03795 260.41)",
+          "oklch(49% 0.03795 260.41)",
+          "oklch(61% 0.03795 260.41)",
+          "oklch(72% 0.03795 260.41)",
+          "oklch(84% 0.03795 260.41)",
+          "oklch(95% 0.03795 260.41)"
+        ]
+      },
+      "dark-on-background": {
+        "role": "neutral",
+        "displayName": "Tinta de fondo · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.02059 254.92)",
+          "oklch(26% 0.02059 254.92)",
+          "oklch(38% 0.02059 254.92)",
+          "oklch(49% 0.02059 254.92)",
+          "oklch(61% 0.02059 254.92)",
+          "oklch(72% 0.02059 254.92)",
+          "oklch(84% 0.02059 254.92)",
+          "oklch(95% 0.02059 254.92)"
+        ]
+      },
+      "dark-surface": {
+        "role": "neutral",
+        "displayName": "Superficie clara · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.04562 257.00)",
+          "oklch(26% 0.04562 257.00)",
+          "oklch(38% 0.04562 257.00)",
+          "oklch(49% 0.04562 257.00)",
+          "oklch(61% 0.04562 257.00)",
+          "oklch(72% 0.04562 257.00)",
+          "oklch(84% 0.04562 257.00)",
+          "oklch(95% 0.04562 257.00)"
+        ]
+      },
+      "dark-on-surface": {
+        "role": "neutral",
+        "displayName": "Tinta principal · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.02059 254.92)",
+          "oklch(26% 0.02059 254.92)",
+          "oklch(38% 0.02059 254.92)",
+          "oklch(49% 0.02059 254.92)",
+          "oklch(61% 0.02059 254.92)",
+          "oklch(72% 0.02059 254.92)",
+          "oklch(84% 0.02059 254.92)",
+          "oklch(95% 0.02059 254.92)"
+        ]
+      },
+      "dark-surface-variant": {
+        "role": "neutral",
+        "displayName": "Capa fría · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.04985 253.63)",
+          "oklch(26% 0.04985 253.63)",
+          "oklch(38% 0.04985 253.63)",
+          "oklch(49% 0.04985 253.63)",
+          "oklch(61% 0.04985 253.63)",
+          "oklch(72% 0.04985 253.63)",
+          "oklch(84% 0.04985 253.63)",
+          "oklch(95% 0.04985 253.63)"
+        ]
+      },
+      "dark-on-surface-variant": {
+        "role": "neutral",
+        "displayName": "Tinta secundaria · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.03966 254.32)",
+          "oklch(26% 0.03966 254.32)",
+          "oklch(38% 0.03966 254.32)",
+          "oklch(49% 0.03966 254.32)",
+          "oklch(61% 0.03966 254.32)",
+          "oklch(72% 0.03966 254.32)",
+          "oklch(84% 0.03966 254.32)",
+          "oklch(95% 0.03966 254.32)"
+        ]
+      },
+      "dark-outline": {
+        "role": "neutral",
+        "displayName": "Contorno · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.05042 253.33)",
+          "oklch(26% 0.05042 253.33)",
+          "oklch(38% 0.05042 253.33)",
+          "oklch(49% 0.05042 253.33)",
+          "oklch(61% 0.05042 253.33)",
+          "oklch(72% 0.05042 253.33)",
+          "oklch(84% 0.05042 253.33)",
+          "oklch(95% 0.05042 253.33)"
+        ]
+      },
+      "dark-outline-variant": {
+        "role": "neutral",
+        "displayName": "Divisor suave · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.05606 254.60)",
+          "oklch(26% 0.05606 254.60)",
+          "oklch(38% 0.05606 254.60)",
+          "oklch(49% 0.05606 254.60)",
+          "oklch(61% 0.05606 254.60)",
+          "oklch(72% 0.05606 254.60)",
+          "oklch(84% 0.05606 254.60)",
+          "oklch(95% 0.05606 254.60)"
+        ]
+      },
+      "dark-error": {
+        "role": "neutral",
+        "displayName": "Error · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.09233 8.27)",
+          "oklch(26% 0.09233 8.27)",
+          "oklch(38% 0.09233 8.27)",
+          "oklch(49% 0.09233 8.27)",
+          "oklch(61% 0.09233 8.27)",
+          "oklch(72% 0.09233 8.27)",
+          "oklch(84% 0.09233 8.27)",
+          "oklch(95% 0.09233 8.27)"
+        ]
+      },
+      "dark-error-container": {
+        "role": "neutral",
+        "displayName": "Contenedor de error · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.09120 5.80)",
+          "oklch(26% 0.09120 5.80)",
+          "oklch(38% 0.09120 5.80)",
+          "oklch(49% 0.09120 5.80)",
+          "oklch(61% 0.09120 5.80)",
+          "oklch(72% 0.09120 5.80)",
+          "oklch(84% 0.09120 5.80)",
+          "oklch(95% 0.09120 5.80)"
+        ]
+      },
+      "dark-on-error-container": {
+        "role": "neutral",
+        "displayName": "Tinta de error · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.04376 2.03)",
+          "oklch(26% 0.04376 2.03)",
+          "oklch(38% 0.04376 2.03)",
+          "oklch(49% 0.04376 2.03)",
+          "oklch(61% 0.04376 2.03)",
+          "oklch(72% 0.04376 2.03)",
+          "oklch(84% 0.04376 2.03)",
+          "oklch(95% 0.04376 2.03)"
+        ]
+      },
+      "glass-fallback-start": {
+        "role": "neutral",
+        "displayName": "Vidrio alternativo inicial",
+        "tonalRamp": [
+          "oklch(15% 0.00854 247.91)",
+          "oklch(26% 0.00854 247.91)",
+          "oklch(38% 0.00854 247.91)",
+          "oklch(49% 0.00854 247.91)",
+          "oklch(61% 0.00854 247.91)",
+          "oklch(72% 0.00854 247.91)",
+          "oklch(84% 0.00854 247.91)",
+          "oklch(95% 0.00854 247.91)"
+        ]
+      },
+      "glass-fallback-end": {
+        "role": "neutral",
+        "displayName": "Vidrio alternativo final",
+        "tonalRamp": [
+          "oklch(15% 0.02701 249.85)",
+          "oklch(26% 0.02701 249.85)",
+          "oklch(38% 0.02701 249.85)",
+          "oklch(49% 0.02701 249.85)",
+          "oklch(61% 0.02701 249.85)",
+          "oklch(72% 0.02701 249.85)",
+          "oklch(84% 0.02701 249.85)",
+          "oklch(95% 0.02701 249.85)"
+        ]
+      },
+      "dark-glass-fallback-start": {
+        "role": "neutral",
+        "displayName": "Vidrio alternativo inicial · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.05341 258.63)",
+          "oklch(26% 0.05341 258.63)",
+          "oklch(38% 0.05341 258.63)",
+          "oklch(49% 0.05341 258.63)",
+          "oklch(61% 0.05341 258.63)",
+          "oklch(72% 0.05341 258.63)",
+          "oklch(84% 0.05341 258.63)",
+          "oklch(95% 0.05341 258.63)"
+        ]
+      },
+      "dark-glass-fallback-end": {
+        "role": "neutral",
+        "displayName": "Vidrio alternativo final · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.03994 258.28)",
+          "oklch(26% 0.03994 258.28)",
+          "oklch(38% 0.03994 258.28)",
+          "oklch(49% 0.03994 258.28)",
+          "oklch(61% 0.03994 258.28)",
+          "oklch(72% 0.03994 258.28)",
+          "oklch(84% 0.03994 258.28)",
+          "oklch(95% 0.03994 258.28)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display-medium": {
+        "displayName": "display-medium",
+        "purpose": "Porcentaje de progreso; displayMedium heredado."
+      },
+      "headline-medium": {
+        "displayName": "headline-medium",
+        "purpose": "Título de tarea; headlineMedium con Bold."
+      },
+      "headline-small": {
+        "displayName": "headline-small",
+        "purpose": "Cabecera; headlineSmall con Bold."
+      },
+      "result-headline": {
+        "displayName": "result-headline",
+        "purpose": "Resultado; headlineSmall con SemiBold."
+      },
+      "headline-small-regular": {
+        "displayName": "headline-small-regular",
+        "purpose": "Título de historial vacío."
+      },
+      "title-large": {
+        "displayName": "title-large",
+        "purpose": "Comparación de tiempos."
+      },
+      "diagnostic-title": {
+        "displayName": "diagnostic-title",
+        "purpose": "Diagnóstico; titleLarge con Bold."
+      },
+      "title-medium": {
+        "displayName": "title-medium",
+        "purpose": "Estados, historial y botón táctil."
+      },
+      "body-large": {
+        "displayName": "body-large",
+        "purpose": "Lectura general y resumen."
+      },
+      "body-medium": {
+        "displayName": "body-medium",
+        "purpose": "Diagnóstico breve."
+      },
+      "body-small": {
+        "displayName": "body-small",
+        "purpose": "Ayuda, tiempo y fecha."
+      },
+      "label-large": {
+        "displayName": "label-large",
+        "purpose": "Controles Material3."
+      }
+    },
+    "shadows": [
+      {
+        "name": "glass-native",
+        "value": "shadowElevation=6.dp; ambientShadowColor=0x201C426E; spotShadowColor=0x301C426E",
+        "purpose": "Elevación nativa de SuperficieVidrio cuando fondo=false. El CSS de vista previa aproxima esta sombra; no especifica el renderizado Android."
+      }
+    ],
+    "motion": [
+      {
+        "name": "glass-press",
+        "value": "scale: pressed=0.96, rest=1.0; spring(dampingRatio=0.8, stiffness=600)",
+        "purpose": "BotonVidrio; animateFloatAsState respeta la escala de duración del sistema. Las duraciones del trabajo simulado no son tokens de movimiento."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-workspace",
+        "value": "700dp"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Acción principal",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Button Material3. Vista previa clara; dp a px solo para el panel, sin reproducir ripple nativo.",
+      "html": "<button class=\"ds-primary\">Iniciar</button>",
+      "css": ".ds-primary{font-family:sans-serif;font-size:14px;font-weight:500;line-height:20px;letter-spacing:.1px;background:#195DAA;color:#FFFFFF;border:0;border-radius:999px;min-height:56px;padding:0 28px}.ds-primary:hover:not(:disabled){cursor:pointer}.ds-primary:focus-visible{outline:auto}.ds-primary:active:not(:disabled){cursor:pointer}.ds-primary:disabled{background:rgba(19,42,68,.12);color:rgba(19,42,68,.38)}"
+    },
+    {
+      "name": "Acción de contorno",
+      "kind": "button",
+      "refersTo": "button-outlined",
+      "description": "OutlinedButton Material3; padding, forma y estados del ejemplo representan defaults, no tokens locales nuevos.",
+      "html": "<button class=\"ds-outlined\">Cancelar tarea</button>",
+      "css": ".ds-outlined{font-family:sans-serif;font-size:14px;font-weight:500;line-height:20px;letter-spacing:.1px;background:transparent;color:#195DAA;border:1px solid #6C819A;border-radius:999px;min-height:56px;padding:0 24px}.ds-outlined:hover:not(:disabled){cursor:pointer}.ds-outlined:focus-visible{outline:auto}.ds-outlined:active:not(:disabled){cursor:pointer}.ds-outlined:disabled{border-color:rgba(19,42,68,.12);color:rgba(19,42,68,.38)}"
+    },
+    {
+      "name": "Acción de texto",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "TextButton para revelar pruebas. Vista previa con foco nativo del navegador.",
+      "html": "<button class=\"ds-text\">Pruebas de carga</button>",
+      "css": ".ds-text{font-family:sans-serif;font-size:14px;font-weight:500;line-height:20px;letter-spacing:.1px;background:transparent;color:#195DAA;border:0;border-radius:999px;min-height:56px;padding:0 12px}.ds-text:hover:not(:disabled){cursor:pointer}.ds-text:focus-visible{outline:auto}.ds-text:active:not(:disabled){cursor:pointer}.ds-text:disabled{color:rgba(19,42,68,.38)}"
+    },
+    {
+      "name": "Botón de vidrio",
+      "kind": "button",
+      "refersTo": "button-glass",
+      "description": "BotonVidrio táctil. Preview usa el degradado fallback; no simula AGSL ni fija duración a su resorte. La sombra CSS es una aproximación del panel.",
+      "html": "<button class=\"ds-glass\"><svg aria-hidden=\"true\" width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 13V5a3 3 0 0 1 6 0v8M9 10l-3 1a2 2 0 0 0-1 3l4 6h8l3-9-5-2\"/></svg><span>Tócame: 0</span></button>",
+      "css": ".ds-glass{display:flex;align-items:center;justify-content:center;gap:12px;font-family:sans-serif;font-size:14px;font-weight:500;line-height:20px;letter-spacing:.1px;font-size:16px;line-height:24px;letter-spacing:.2px;min-height:60px;width:100%;padding:0 16px;color:#195DAA;background:linear-gradient(135deg,#F5FAFF,#DCEBFB);border:1px solid rgba(255,255,255,.95);border-radius:30px;box-shadow:0 6px 12px rgba(28,66,110,.12)}.ds-glass:hover:not(:disabled){cursor:pointer}.ds-glass:focus-visible{outline:auto}.ds-glass:active:not(:disabled){transform:scale(.96)}.ds-glass:disabled{opacity:.45}"
+    },
+    {
+      "name": "Selector en vidrio",
+      "kind": "nav",
+      "refersTo": "glass-selector",
+      "description": "Selector exclusivo. Radios HTML traducen la selección nativa; los tres segmentos usan la alternativa de vidrio.",
+      "html": "<div class=\"ds-selector\" role=\"group\" aria-label=\"Tarea\"><label class=\"ds-segment\"><input type=\"radio\" name=\"ds-task\" checked /><span>Progreso</span></label><label class=\"ds-segment\"><input type=\"radio\" name=\"ds-task\" /><span>Primos</span></label><label class=\"ds-segment\"><input type=\"radio\" name=\"ds-task\" /><span>Cargas</span></label></div>",
+      "css": ".ds-selector{display:flex;min-height:56px;border-radius:30px;border:1px solid rgba(255,255,255,.95);background:linear-gradient(135deg,#F5FAFF,#DCEBFB);box-shadow:0 6px 12px rgba(28,66,110,.12)}.ds-segment{flex:1;display:flex;position:relative;align-items:stretch;min-width:0;font-family:sans-serif;font-size:14px;font-weight:500;line-height:20px;letter-spacing:.1px;color:#132A44}.ds-segment input{position:absolute;opacity:0;width:1px;height:1px}.ds-segment span{flex:1;display:flex;align-items:center;justify-content:center;padding:0 12px}.ds-segment:first-child span{border-radius:30px 0 0 30px}.ds-segment:last-child span{border-radius:0 30px 30px 0}.ds-segment input:checked+span{background:rgba(217,233,255,.8);color:#123D70}.ds-segment:hover{cursor:pointer}.ds-segment input:focus-visible+span{outline:auto}.ds-segment:active{cursor:pointer}"
+    },
+    {
+      "name": "Límite numérico",
+      "kind": "input",
+      "refersTo": "input-number",
+      "description": "OutlinedTextField numérico. Preview simplificado de los defaults Material3; foco del navegador.",
+      "html": "<label class=\"ds-field\">Hasta el número<input class=\"ds-number\" type=\"text\" inputmode=\"numeric\" value=\"5000000\" /></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:6px;font-family:sans-serif;color:#475F7A;font-size:12px;line-height:16px}.ds-number{font-family:sans-serif;font-size:16px;line-height:24px;letter-spacing:.5px;color:#132A44;background:transparent;border:1px solid #6C819A;border-radius:4px;min-height:56px;padding:0 16px}.ds-number:hover:not(:disabled){cursor:text}.ds-number:focus-visible{outline:auto;border-color:#195DAA}.ds-number:active:not(:disabled){cursor:text}.ds-number:disabled{color:rgba(19,42,68,.38);border-color:rgba(19,42,68,.12)}"
+    },
+    {
+      "name": "Opción con interruptor",
+      "kind": "custom",
+      "refersTo": "option-switch",
+      "description": "Una etiqueta, un control. En Compose la fila usa toggleable(Role.Switch); el Switch no posee una segunda acción.",
+      "html": "<label class=\"ds-option\"><span>Simular error</span><input class=\"ds-switch\" type=\"checkbox\" role=\"switch\" /></label>",
+      "css": ".ds-option{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;color:#132A44;font-family:sans-serif;font-size:16px;line-height:24px;letter-spacing:.5px}.ds-switch{appearance:none;flex:none;width:52px;height:32px;margin:0;border:2px solid #6C819A;border-radius:16px;background:#E8EFF8;position:relative}.ds-switch:before{content:\"\";position:absolute;width:16px;height:16px;top:6px;left:6px;background:#6C819A;border-radius:50%}.ds-switch:checked{background:#195DAA;border-color:#195DAA}.ds-switch:checked:before{width:24px;height:24px;top:2px;left:22px;background:#FFFFFF}.ds-option:hover,.ds-switch:hover:not(:disabled){cursor:pointer}.ds-switch:focus-visible{outline:auto}.ds-switch:active:not(:disabled){cursor:pointer}.ds-switch:disabled{opacity:.38}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Azul y vidrio claro",
+    "overview": "Azul profundo y celeste sobre blanco frío. La lectura permanece mate y nítida; el vidrio da presencia a la selección y a los controles. El tema oscuro conserva las mismas funciones de color y responde a la preferencia del sistema.\n\nEs un sistema Android nativo con Compose Material3. La tipografía y los controles mantienen sus convenciones de plataforma; el material propio se limita a superficies procedurales, bordes luminosos y respuesta de presión. No existe una composición raster que actúe como autoridad.",
+    "keyCharacteristics": [
+      "Lectura oscura sobre superficies claras en el tema diurno.",
+      "Vidrio localizado en selección y controles; texto sin distorsión.",
+      "Jerarquía y estados nativos Material3.",
+      "Azul para acción y medición; rojo semántico para error."
+    ],
+    "rules": [
+      {
+        "name": "The Shared Background Rule",
+        "body": "La lente y el fondo evalúan el mismo campo procedural en coordenadas globales. No atribuir a la lente refracción de otras vistas ni del contenido.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Native Type Rule",
+        "body": "Reutilizar los roles de MaterialTheme.typography y sus pesos explícitos; conservar el escalado de texto del sistema.",
+        "section": "typography"
+      },
+      {
+        "name": "The Honest Trace Rule",
+        "body": "La traza representa intervalos reales entre fotogramas. No convertirla en una animación ornamental.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do conservar las parejas de color del tema activo y el escalado de texto del sistema.",
+      "Do usar el vidrio en controles y mantener el contenido textual nítido.",
+      "Do conservar las áreas mínimas y el ajuste de acciones con FlowRow.",
+      "Do asociar cada interruptor a su etiqueta en un único nodo accionable con Role.Switch.",
+      "Do respetar la reducción de animaciones del sistema y medir el comportamiento real antes de afirmar fluidez."
+    ],
+    "donts": [
+      "Don't sustituir Typography() por una fuente de exhibición o un tamaño fijo en píxeles.",
+      "Don't describir la lente como un desenfoque o una captura de vistas subyacentes.",
+      "Don't registrar las esperas de tareas, timeout o reintentos como duraciones de animación.",
+      "Don't convertir los ejemplos HTML del panel en autoridad sobre la implementación Compose.",
+      "Don't afirmar validación del fallback en API24–32 ni de teléfono físico: la evidencia disponible corresponde al emulador API37."
+    ]
+  }
+}

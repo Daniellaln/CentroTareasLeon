@@ -112,6 +112,16 @@ class CentroTareasTest {
         ui.runOnIdle { vm.cambiarLimite(true);vm.cargarUnaPorUna() };ui.waitUntil(6000) { vm.carga.value is CargaUi.Error }
         assertEquals(1,vm.mediciones.value.size)
     }
+    @Test fun opcionesSonControlesUnicosConNombreEstadoYAccion() {
+        val vm=mostrar();ui.onNodeWithText("Cargas").performClick()
+        ui.onNodeWithText("Pruebas de carga").performScrollTo().performClick()
+        for(nombre in listOf("Simular error","Límite de 2 s","Reintento automático")) {
+            ui.onNodeWithText(nombre).performScrollTo().assertIsToggleable().assertIsOff().assertHasClickAction().performClick().assertIsOn()
+        }
+        assertTrue(vm.simularError.value);assertTrue(vm.limite.value);assertTrue(vm.reintentar.value)
+        ui.runOnIdle { vm.cargarALaVez() }
+        ui.onNodeWithText("Simular error").assertIsNotEnabled()
+    }
     @Test fun medidorNoCuentaElTiempoEnSegundoPlano() {
         val vm=mostrar();ui.runOnIdle {
             vm.tareaLarga();vm.registrarFotograma(1_000_000_000);vm.registrarFotograma(1_020_000_000)

@@ -1,0 +1,49 @@
+
+> Task :app:dependencyInsight
+androidx.compose.material3:material3:1.4.0 (by constraint)
+  Variant androidRuntimeElements-published:
+    | Attribute Name                                  | Provided     | Requested    |
+    |-------------------------------------------------|--------------|--------------|
+    | org.gradle.libraryelements                      | aar          |              |
+    | org.gradle.status                               | release      |              |
+    | org.gradle.category                             | library      | library      |
+    | org.gradle.jvm.environment                      | android      | android      |
+    | org.gradle.usage                                | java-runtime | java-runtime |
+    | org.jetbrains.kotlin.platform.type              | jvm          | androidJvm   |
+    | com.android.build.api.attributes.AgpVersionAttr |              | 9.1.1        |
+    | com.android.build.api.attributes.BuildTypeAttr  |              | debug        |
+
+androidx.compose.material3:material3:1.4.0
+\--- androidx.compose:compose-bom:2026.06.01
+     \--- debugRuntimeClasspath
+
+androidx.compose.material3:material3 -> 1.4.0
+\--- debugRuntimeClasspath
+
+androidx.compose.material3:material3-android:1.4.0 (by constraint)
+  Variant androidRuntimeElements-published:
+    | Attribute Name                                  | Provided     | Requested    |
+    |-------------------------------------------------|--------------|--------------|
+    | org.gradle.libraryelements                      | aar          |              |
+    | org.gradle.status                               | release      |              |
+    | org.gradle.category                             | library      | library      |
+    | org.gradle.jvm.environment                      | android      | android      |
+    | org.gradle.usage                                | java-runtime | java-runtime |
+    | org.jetbrains.kotlin.platform.type              | jvm          | androidJvm   |
+    | com.android.build.api.attributes.AgpVersionAttr |              | 9.1.1        |
+    | com.android.build.api.attributes.BuildTypeAttr  |              | debug        |
+
+androidx.compose.material3:material3-android:1.4.0
++--- androidx.compose:compose-bom:2026.06.01
+|    \--- debugRuntimeClasspath
+\--- androidx.compose.material3:material3:1.4.0
+     +--- debugRuntimeClasspath (requested androidx.compose.material3:material3)
+     \--- androidx.compose:compose-bom:2026.06.01 (*)
+
+(*) - Indicates repeated occurrences of a transitive dependency subtree. Gradle expands transitive dependency subtrees only once per project; repeat occurrences only display the root of the subtree, followed by this annotation.
+
+A web-based, searchable dependency report is available by adding the --scan option.
+
+BUILD SUCCESSFUL in 2s
+1 actionable task: 1 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.3.1/userguide/configuration_cache_enabling.html

@@ -1,0 +1,23 @@
+[
+  {
+    "archivo": "TEST-Android.xml",
+    "tests": "14",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "archivo": "TEST-com.leon.centrotareas.MejorasRepositoryTest.xml",
+    "tests": "3",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "archivo": "TEST-com.leon.centrotareas.RepositoryTest.xml",
+    "tests": "5",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  }
+]

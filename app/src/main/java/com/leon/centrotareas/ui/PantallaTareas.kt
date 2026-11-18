@@ -3,6 +3,7 @@ package com.leon.centrotareas.ui
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -160,8 +161,8 @@ import java.util.*
     }
 }
 @Composable private fun Opcion(titulo:String,valor:Boolean,enabled:Boolean,cambiar:(Boolean)->Unit) {
-    Row(Modifier.fillMaxWidth().heightIn(min=56.dp),verticalAlignment=Alignment.CenterVertically) {
-        Text(titulo,Modifier.weight(1f));Switch(valor,cambiar,enabled=enabled)
+    Row(Modifier.fillMaxWidth().heightIn(min=56.dp).toggleable(value=valor,enabled=enabled,role=Role.Switch,onValueChange=cambiar),verticalAlignment=Alignment.CenterVertically) {
+        Text(titulo,Modifier.weight(1f));Switch(valor,onCheckedChange=null,enabled=enabled)
     }
 }
 @Composable private fun PanelCargas(vm:TareasViewModel,carga:CargaUi) {

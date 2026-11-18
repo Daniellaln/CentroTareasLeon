@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.leon.centrotareas.MejorasRepositoryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-18T15:10:32.359Z" hostname="WILLIAM" time="0.287">
+  <properties/>
+  <testcase name="historialConservaSoloCincoMasRecientesYNoDuplicaIds" classname="com.leon.centrotareas.MejorasRepositoryTest" time="0.232"/>
+  <testcase name="primosEmitenResultadoExactoYProgresoMonotono" classname="com.leon.centrotareas.MejorasRepositoryTest" time="0.031"/>
+  <testcase name="flujoDePrimosNoIgnoraLaCancelacion" classname="com.leon.centrotareas.MejorasRepositoryTest" time="0.017"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
