@@ -41,7 +41,9 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
         calculo=viewModelScope.launch {
             try {
                 val inicio=System.currentTimeMillis()
-                val cantidad=repo.contarPrimos(hasta)
+                _progresoPrimos.value=0f
+                var cantidad=0
+                repo.progresoPrimos(hasta).collect { _progresoPrimos.value=it.progreso;cantidad=it.cantidad }
                 _primos.value=PrimosUi.Listo(cantidad,System.currentTimeMillis()-inicio)
             } catch(e:CancellationException) { _primos.value=PrimosUi.Cancelado;throw e }
         }
@@ -96,4 +98,6 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
             }
         }
     }
+    private val _progresoPrimos=MutableStateFlow(0f)
+    val progresoPrimos:StateFlow<Float> = _progresoPrimos.asStateFlow()
 }

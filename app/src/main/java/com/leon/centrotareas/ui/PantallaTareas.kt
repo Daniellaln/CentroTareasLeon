@@ -25,6 +25,7 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
     var toques by rememberSaveable { mutableIntStateOf(0) }
     var numero by rememberSaveable { mutableStateOf("5000000") }
     val progreso by vm.progreso.collectAsStateWithLifecycle()
+    val progresoPrimos by vm.progresoPrimos.collectAsStateWithLifecycle()
     val corriendo by vm.corriendo.collectAsStateWithLifecycle()
     val simularError by vm.simularError.collectAsStateWithLifecycle()
     Scaffold(topBar={ TopAppBar(title={ Text("CentroTareas",fontWeight=FontWeight.Bold) },colors=TopAppBarDefaults.topAppBarColors(containerColor=MaterialTheme.colorScheme.primary,titleContentColor=MaterialTheme.colorScheme.onPrimary)) }) { margen ->
@@ -49,7 +50,7 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
                 }
                 when(val estado=primos) {
                     PrimosUi.Inicial -> Unit
-                    PrimosUi.Calculando -> { CircularProgressIndicator(Modifier.size(24.dp));Text("Calculando…") }
+                    PrimosUi.Calculando -> { LinearProgressIndicator(progress={ progresoPrimos },modifier=Modifier.fillMaxWidth());Text("Cálculo: ${(progresoPrimos*100).toInt()} %") }
                     PrimosUi.Cancelado -> Text("Cálculo cancelado")
                     is PrimosUi.Listo -> Resultado { Text("Primos: ${estado.cantidad}",fontWeight=FontWeight.Bold);Text("Tiempo: ${estado.milisegundos} ms") }
                 }

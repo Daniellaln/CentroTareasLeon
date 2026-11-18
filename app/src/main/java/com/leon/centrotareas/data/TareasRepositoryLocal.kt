@@ -19,6 +19,17 @@ class TareasRepositoryLocal:TareasRepository {
         Log.d("HILO","Dentro: ${Thread.currentThread().name}")
         for(i in 1..100) { delay(40);emit(i/100f) }
     }.flowOn(Dispatchers.Default)
+    override fun progresoPrimos(hasta:Int):Flow<com.leon.centrotareas.model.AvancePrimos> = flow {
+        require(hasta>=2)
+        var cantidad=0;var ultimo=-1
+        emit(com.leon.centrotareas.model.AvancePrimos(0f,0))
+        for(n in 2..hasta) {
+            currentCoroutineContext().ensureActive()
+            if(esPrimo(n))cantidad++
+            val porcentaje=(n.toLong()*100/hasta).toInt()
+            if(porcentaje>ultimo) { emit(com.leon.centrotareas.model.AvancePrimos(n.toFloat()/hasta,cantidad));ultimo=porcentaje }
+        }
+    }.flowOn(Dispatchers.Default).conflate()
     private fun esPrimo(n:Int):Boolean {
         var d=2
         while(d.toLong()*d<=n) { if(n%d==0)return false;d++ }

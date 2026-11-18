@@ -51,3 +51,19 @@ La UI solo observa el ViewModel y comunica acciones; no consulta repositorios ni
 | 3. Reintento automático | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Reintento automático conservando las interfaces y cancelación de la base. | Cumplir la mejora sin mover lógica de trabajo a Compose. |
 
 Diferencia frente a la base: se incorpora reintento automático. Reflexión: cada estado visible debe corresponder a trabajo real. Comprobar: el caso de éxito, cancelación y recuperación descritos arriba.
+
+## 4. Primos con progreso
+
+```text
+Compórtate como un experto en Kotlin, corrutinas y arquitectura MVVM para Android. Ayúdame a incorporar primos con progreso a CentroTareasLeon, paquete com.leon.centrotareas, partiendo del avance anterior en mejora-ia. Conserva main, los modelos de estado, el resto de funciones y las tres tareas de la guía. El proyecto usa Compose Material3 y JDK21; no necesita Firebase, permisos ni Internet para simular cargas.
+
+Crea model/AvancePrimos(progreso:Float,cantidad:Int). Añade progresoPrimos(hasta):Flow<AvancePrimos> al Repository. En producción usa flowOn(Default), ensureActive en cada número y esPrimo existente. Emite al inicio y al cambiar cada porcentaje entero, con último progreso1f y resultado exacto. Usa n.toLong()*100/hasta para evitar desbordamiento. Puedes conflate las emisiones: el resultado final no debe perderse. TareasViewModel.contar recoge el Flow, actualiza progresoPrimos y finalmente Listo(cantidad,ms). Mantén validación de hasta>=2 y Cancelado con cancelación relanzada. La pantalla debe mostrar barra y porcentaje del cálculo. No introduzcas delay para falsear duración. Verifica100→25,1000→168,10000→1229 y cancelación de un cálculo grande.
+
+La UI solo observa el ViewModel y comunica acciones; no consulta repositorios ni lanza trabajos. El ViewModel depende de interfaces sin Context. Conserva la cancelación estructurada y evita GlobalScope, runBlocking y Thread.sleep en código de producción. Compila con gradlew.bat assembleDebug testDebugUnitTest (o ./gradlew en Mac) y comprueba este cambio antes de seguir al próximo prompt. Puedes consultar el código de este avance en el historial Git de la rama para reproducir firmas y etiquetas exactas.
+```
+
+| Prompt | Qué respondió Gemini | Qué adapté | Por qué |
+|---|---|---|---|
+| 4. Primos con progreso | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Primos con progreso conservando las interfaces y cancelación de la base. | Cumplir la mejora sin mover lógica de trabajo a Compose. |
+
+Diferencia frente a la base: se incorpora primos con progreso. Reflexión: cada estado visible debe corresponder a trabajo real. Comprobar: el caso de éxito, cancelación y recuperación descritos arriba.

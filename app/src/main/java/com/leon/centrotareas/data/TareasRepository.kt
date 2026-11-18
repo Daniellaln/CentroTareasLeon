@@ -8,4 +8,9 @@ interface TareasRepository {
         for(i in 1..100) { kotlinx.coroutines.delay(40);emit(i/100f) }
     }.flowOn(kotlinx.coroutines.Dispatchers.Default)
 
+    fun progresoPrimos(hasta:Int):kotlinx.coroutines.flow.Flow<com.leon.centrotareas.model.AvancePrimos> = kotlinx.coroutines.flow.flow {
+        emit(com.leon.centrotareas.model.AvancePrimos(0f,0))
+        emit(com.leon.centrotareas.model.AvancePrimos(1f,contarPrimos(hasta)))
+    }
+
 }
