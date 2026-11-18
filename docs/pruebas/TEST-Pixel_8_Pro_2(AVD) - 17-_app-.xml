@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="8" failures="0" errors="0" skipped="0" time="24.897" timestamp="2026-11-18T14:35:50" hostname="localhost">
+  <testsuite name="com.leon.centrotareas.CentroTareasTest" tests="8" failures="0" errors="0" skipped="0" time="23.469" timestamp="2026-11-18T14:35:50" hostname="localhost">
+    <properties>
+      <property name="device" value="Pixel_8_Pro_2(AVD) - 17" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="progresoNoBloqueaToquesYSePuedeCancelarYReiniciar" classname="com.leon.centrotareas.CentroTareasTest" time="5.434" />
+    <testcase name="tareaCompletaLlegaACien" classname="com.leon.centrotareas.CentroTareasTest" time="6.702" />
+    <testcase name="botonesInicialesTienenEstadosCorrectos" classname="com.leon.centrotareas.CentroTareasTest" time="2.003" />
+    <testcase name="textoInvalidoNoLanzaCalculo" classname="com.leon.centrotareas.CentroTareasTest" time="2.133" />
+    <testcase name="primosDevuelven168YCancelacionFunciona" classname="com.leon.centrotareas.CentroTareasTest" time="2.257" />
+    <testcase name="cancelarCargaNoSeConvierteEnError" classname="com.leon.centrotareas.CentroTareasTest" time="1.44" />
+    <testcase name="cargasEnParaleloSuperponenSusEsperas" classname="com.leon.centrotareas.CentroTareasTest" time="1.755" />
+    <testcase name="errorYReintentoConservanLaAppOperativa" classname="com.leon.centrotareas.CentroTareasTest" time="1.745" />
+  </testsuite>
+</testsuites>

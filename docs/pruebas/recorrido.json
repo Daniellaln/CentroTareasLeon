@@ -1,0 +1,11 @@
+{
+  "progreso_y_toques": true,
+  "cancelacion": true,
+  "rotacion_conserva_tarea": true,
+  "primos_5000000": "Tiempo: 2571 ms",
+  "secuencial": "Tiempo: 5013 ms",
+  "paralelo": "Tiempo: 3006 ms",
+  "error_y_reintento": true,
+  "reintento": "Tiempo: 3001 ms",
+  "fuente_tiempos": "Valores cotejados visualmente en capturas 08,09 y11; se corrigió la extracción que confundía el tiempo de primos con el de cargas"
+}

@@ -1,0 +1,6 @@
+--------- beginning of main
+11-18 14:40:19.305  7327  7327 D HILO    : Antes: main
+11-18 14:40:19.309  7327  7495 D HILO    : Dentro: DefaultDispatcher-worker-1
+11-18 14:40:23.071  7327  7327 D HILO    : Antes: main
+11-18 14:40:23.071  7327  7495 D HILO    : Dentro: DefaultDispatcher-worker-1
+11-18 14:40:27.497  7327  7327 D HILO    : Después: main

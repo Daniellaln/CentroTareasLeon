@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.leon.centrotareas.RepositoryTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-18T14:39:44.078Z" hostname="WILLIAM" time="0.338">
+  <properties/>
+  <testcase name="cancelarCalculoPesadoInterrumpeElRepository" classname="com.leon.centrotareas.RepositoryTest" time="0.254"/>
+  <testcase name="cargasUsanLasDuracionesYDatosDeLaGuia" classname="com.leon.centrotareas.RepositoryTest" time="0.006"/>
+  <testcase name="valoresDeReferencia" classname="com.leon.centrotareas.RepositoryTest" time="0.062"/>
+  <testcase name="limiteInferiorNoCuentaPrimos" classname="com.leon.centrotareas.RepositoryTest" time="0.002"/>
+  <testcase name="errorSimuladoEsIOException" classname="com.leon.centrotareas.RepositoryTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
