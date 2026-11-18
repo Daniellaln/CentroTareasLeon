@@ -23,7 +23,7 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
     val primos by vm.primos.collectAsStateWithLifecycle()
     val carga by vm.carga.collectAsStateWithLifecycle()
     var toques by rememberSaveable { mutableIntStateOf(0) }
-    var numero by rememberSaveable { mutableStateOf("500000") }
+    var numero by rememberSaveable { mutableStateOf("5000000") }
     val progreso by vm.progreso.collectAsStateWithLifecycle()
     val corriendo by vm.corriendo.collectAsStateWithLifecycle()
     val simularError by vm.simularError.collectAsStateWithLifecycle()

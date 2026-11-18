@@ -4,6 +4,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.Test
 import org.junit.Assert.*
+@OptIn(ExperimentalCoroutinesApi::class)
 class RepositoryTest {
     @Test fun valoresDeReferencia()=runTest {
         val repo=TareasRepositoryLocal()
