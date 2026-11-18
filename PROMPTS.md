@@ -35,3 +35,19 @@ La UI solo observa el ViewModel y comunica acciones; no consulta repositorios ni
 | 2. Tiempo máximo | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Tiempo máximo conservando las interfaces y cancelación de la base. | Cumplir la mejora sin mover lógica de trabajo a Compose. |
 
 Diferencia frente a la base: se incorpora tiempo máximo. Reflexión: cada estado visible debe corresponder a trabajo real. Comprobar: el caso de éxito, cancelación y recuperación descritos arriba.
+
+## 3. Reintento automático
+
+```text
+Compórtate como un experto en Kotlin, corrutinas y arquitectura MVVM para Android. Ayúdame a incorporar reintento automático a CentroTareasLeon, paquete com.leon.centrotareas, partiendo del avance anterior en mejora-ia. Conserva main, los modelos de estado, el resto de funciones y las tres tareas de la guía. El proyecto usa Compose Material3 y JDK21; no necesita Firebase, permisos ni Internet para simular cargas.
+
+Añade reintentar e intento como StateFlow y un Switch Reintento automático, desactivado inicialmente. Si IOException falla una carga, reintenta como máximo tres veces adicionales: intento original más tres reintentos. Espera500ms,1000ms y2000ms entre intentos. Muestra el intento actual. Mantén un único Job: los botones se deshabilitan al cargar. Cada intento paralelo va dentro de coroutineScope para cancelar el hermano si falla. No reintentes CancellationException ni un timeout; propaga cancelación manual. Captura la configuración al iniciar para que cambiar un switch no altere silenciosamente una ejecución ya activa. Comprueba cuatro intentos en error, esperas crecientes y que Cancelar detenga también una espera de reintento.
+
+La UI solo observa el ViewModel y comunica acciones; no consulta repositorios ni lanza trabajos. El ViewModel depende de interfaces sin Context. Conserva la cancelación estructurada y evita GlobalScope, runBlocking y Thread.sleep en código de producción. Compila con gradlew.bat assembleDebug testDebugUnitTest (o ./gradlew en Mac) y comprueba este cambio antes de seguir al próximo prompt. Puedes consultar el código de este avance en el historial Git de la rama para reproducir firmas y etiquetas exactas.
+```
+
+| Prompt | Qué respondió Gemini | Qué adapté | Por qué |
+|---|---|---|---|
+| 3. Reintento automático | Pendiente de ejecutar en Gemini; referencia realizada con Codex. | Reintento automático conservando las interfaces y cancelación de la base. | Cumplir la mejora sin mover lógica de trabajo a Compose. |
+
+Diferencia frente a la base: se incorpora reintento automático. Reflexión: cada estado visible debe corresponder a trabajo real. Comprobar: el caso de éxito, cancelación y recuperación descritos arriba.

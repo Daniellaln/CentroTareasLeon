@@ -55,6 +55,10 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
                 }
             }
             Seccion("Dos cargas") {
+                val reintento by vm.reintentar.collectAsStateWithLifecycle()
+                val intento by vm.intento.collectAsStateWithLifecycle()
+                Row(verticalAlignment=Alignment.CenterVertically) { Switch(reintento,vm::cambiarReintento);Text("Reintento automático") }
+                if(carga==CargaUi.Cargando) Text("Intento $intento de ${if(reintento)4 else 1}")
                 val limite by vm.limite.collectAsStateWithLifecycle()
                 Row(verticalAlignment=Alignment.CenterVertically) { Switch(limite,vm::cambiarLimite);Text("Límite de 2 s") }
                 Row(verticalAlignment=Alignment.CenterVertically) { Switch(checked=simularError,onCheckedChange=vm::cambiarSimularError);Spacer(Modifier.width(8.dp));Text("Simular error") }

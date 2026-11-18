@@ -59,14 +59,15 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
         _carga.value=CargaUi.Cargando
         val fallo=_simularError.value
         val usarLimite=_limite.value
+        val automatico=_reintentar.value
         cargaJob=viewModelScope.launch {
             try {
                 val inicio=System.currentTimeMillis()
-                val (perfil,pedidos)=conLimite(usarLimite) { if(paralelo)coroutineScope {
+                val (perfil,pedidos)=conReintentos(automatico) { conLimite(usarLimite) { if(paralelo)coroutineScope {
                     val a=async { repo.cargarPerfil() }
                     val c=async { repo.cargarPedidos(fallo) }
                     a.await() to c.await()
-                } else repo.cargarPerfil() to repo.cargarPedidos(fallo) }
+                } else repo.cargarPerfil() to repo.cargarPedidos(fallo) } }
                 _carga.value=CargaUi.Exito(if(paralelo)"A la vez" else "Una por una",perfil,pedidos.size,System.currentTimeMillis()-inicio)
             } catch(e:TimeoutCancellationException) { _carga.value=CargaUi.Error("Tardó demasiado") }
             catch(e:CancellationException) { _carga.value=CargaUi.Inicial;throw e }
@@ -78,4 +79,21 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
     fun cambiarLimite(valor:Boolean) { _limite.value=valor }
     private suspend fun <T> conLimite(usar:Boolean,bloque:suspend ()->T):T =
         if(usar) withTimeout(2000) { bloque() } else bloque()
+    private val _reintentar=MutableStateFlow(false)
+    val reintentar:StateFlow<Boolean> = _reintentar.asStateFlow()
+    private val _intento=MutableStateFlow(0)
+    val intento:StateFlow<Int> = _intento.asStateFlow()
+    fun cambiarReintento(valor:Boolean) { _reintentar.value=valor }
+    private suspend fun <T> conReintentos(automatico:Boolean,bloque:suspend ()->T):T {
+        var repeticion=0
+        while(true) {
+            _intento.value=repeticion+1
+            try { return bloque() }
+            catch(e:CancellationException) { throw e }
+            catch(e:java.io.IOException) {
+                if(!automatico || repeticion>=3)throw e
+                delay(500L shl repeticion);repeticion++
+            }
+        }
+    }
 }
