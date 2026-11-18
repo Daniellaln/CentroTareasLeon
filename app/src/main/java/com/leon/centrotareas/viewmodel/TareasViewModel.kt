@@ -50,6 +50,9 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
         }
     }
     fun cancelarPrimos() { calculo?.cancel() }
+    private val _simularError=MutableStateFlow(false)
+    val simularError:StateFlow<Boolean> = _simularError.asStateFlow()
+    fun cambiarSimularError(valor:Boolean) { _simularError.value=valor }
     private var cargaJob:Job?=null
     fun cargarUnaPorUna()=cargar(false)
     fun cargarALaVez()=cargar(true)
@@ -57,7 +60,7 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
     private fun cargar(paralelo:Boolean) {
         if(_carga.value==CargaUi.Cargando)return
         _carga.value=CargaUi.Cargando
-        val fallo=false
+        val fallo=_simularError.value
         cargaJob=viewModelScope.launch {
             try {
                 val inicio=System.currentTimeMillis()
@@ -68,6 +71,7 @@ class TareasViewModel(private val repo:TareasRepository):ViewModel() {
                 } else repo.cargarPerfil() to repo.cargarPedidos(fallo)
                 _carga.value=CargaUi.Exito(if(paralelo)"A la vez" else "Una por una",perfil,pedidos.size,System.currentTimeMillis()-inicio)
             } catch(e:CancellationException) { _carga.value=CargaUi.Inicial;throw e }
+            catch(e:Exception) { _carga.value=CargaUi.Error("No se pudo cargar: ${e.message ?: "Error inesperado"}") }
         }
     }
 }

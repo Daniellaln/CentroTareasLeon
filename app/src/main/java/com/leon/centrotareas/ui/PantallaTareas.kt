@@ -26,6 +26,7 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
     var numero by rememberSaveable { mutableStateOf("500000") }
     val progreso by vm.progreso.collectAsStateWithLifecycle()
     val corriendo by vm.corriendo.collectAsStateWithLifecycle()
+    val simularError by vm.simularError.collectAsStateWithLifecycle()
     Scaffold(topBar={ TopAppBar(title={ Text("CentroTareas",fontWeight=FontWeight.Bold) },colors=TopAppBarDefaults.topAppBarColors(containerColor=MaterialTheme.colorScheme.primary,titleContentColor=MaterialTheme.colorScheme.onPrimary)) }) { margen ->
         Column(Modifier.fillMaxSize().padding(margen).padding(horizontal=16.dp).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(16.dp)) {
             Spacer(Modifier.height(0.dp))
@@ -54,6 +55,7 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
                 }
             }
             Seccion("Dos cargas") {
+                Row(verticalAlignment=Alignment.CenterVertically) { Switch(checked=simularError,onCheckedChange=vm::cambiarSimularError);Spacer(Modifier.width(8.dp));Text("Simular error") }
                 Row(horizontalArrangement=Arrangement.spacedBy(10.dp)) {
                     OutlinedButton(onClick=vm::cargarUnaPorUna,enabled=carga!=CargaUi.Cargando) { Text("Una por una") }
                     Button(onClick=vm::cargarALaVez,enabled=carga!=CargaUi.Cargando) { Text("A la vez") }
@@ -68,6 +70,7 @@ import com.leon.centrotareas.viewmodel.TareasViewModel
                     is CargaUi.Error -> {
                         Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.errorContainer,MaterialTheme.shapes.medium).padding(12.dp)) {
                             Text(estado.mensaje,color=MaterialTheme.colorScheme.onErrorContainer)
+                            OutlinedButton(onClick=vm::cargarALaVez) { Text("Reintentar") }
                         }
                     }
                 }
