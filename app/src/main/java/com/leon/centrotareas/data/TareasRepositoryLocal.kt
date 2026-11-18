@@ -1,4 +1,4 @@
-package com.tecsup.centrotareas.data
+package com.leon.centrotareas.data
 import kotlinx.coroutines.*
 import java.io.IOException
 class TareasRepositoryLocal:TareasRepository {

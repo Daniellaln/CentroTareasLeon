@@ -1,13 +1,13 @@
-package com.tecsup.centrotareas
+package com.leon.centrotareas
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.SystemBarStyle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.tecsup.centrotareas.ui.PantallaTareas
-import com.tecsup.centrotareas.ui.theme.CentroTareasTheme
-import com.tecsup.centrotareas.viewmodel.*
+import com.leon.centrotareas.ui.PantallaTareas
+import com.leon.centrotareas.ui.theme.CentroTareasTheme
+import com.leon.centrotareas.viewmodel.*
 class MainActivity:ComponentActivity() {
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)

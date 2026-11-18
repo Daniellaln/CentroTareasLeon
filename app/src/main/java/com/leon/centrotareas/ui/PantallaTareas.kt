@@ -1,4 +1,4 @@
-package com.tecsup.centrotareas.ui
+package com.leon.centrotareas.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -14,8 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.tecsup.centrotareas.model.*
-import com.tecsup.centrotareas.viewmodel.TareasViewModel
+import com.leon.centrotareas.model.*
+import com.leon.centrotareas.viewmodel.TareasViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable fun PantallaTareas(vm:TareasViewModel) {

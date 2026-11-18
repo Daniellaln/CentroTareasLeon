@@ -1,9 +1,9 @@
-package com.tecsup.centrotareas.viewmodel
+package com.leon.centrotareas.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tecsup.centrotareas.data.TareasRepository
-import com.tecsup.centrotareas.model.*
+import com.leon.centrotareas.data.TareasRepository
+import com.leon.centrotareas.model.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 class TareasViewModel(private val repo:TareasRepository):ViewModel() {

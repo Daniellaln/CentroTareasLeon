@@ -1,4 +1,4 @@
-package com.tecsup.centrotareas.ui.theme
+package com.leon.centrotareas.ui.theme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color

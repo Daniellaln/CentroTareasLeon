@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "com.tecsup.centrotareas"
+    namespace = "com.leon.centrotareas"
     compileSdk = 37
     defaultConfig {
-        applicationId = "com.tecsup.centrotareas"
+        applicationId = "com.leon.centrotareas"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

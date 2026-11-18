@@ -1,4 +1,4 @@
-package com.tecsup.centrotareas.model
+package com.leon.centrotareas.model
 sealed interface PrimosUi {
     data object Inicial:PrimosUi
     data object Calculando:PrimosUi
